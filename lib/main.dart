@@ -1,5 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:campus_connect_frontend/auth/auth_cubit.dart';
+import 'package:campus_connect_frontend/auth/auth_state.dart';
+import 'package:campus_connect_frontend/auth/pages/signin_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,7 +15,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,6 +38,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("rohit")));
+    return MultiBlocProvider(
+        providers: [BlocProvider(create: (context) => AuthCubit())],
+        child: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            if (state is SigninState) {
+              return SigninPage();
+            }
+
+            if (state is SignupState) {}
+
+            if (state is AuthenticatedState) {}
+
+            return const AutoSizeText("Rohit");
+          },
+        ));
   }
 }

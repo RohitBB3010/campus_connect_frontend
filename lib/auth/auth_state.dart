@@ -1,7 +1,12 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
+
+part 'auth_state.g.dart';
+
 class AuthState {}
 
 class AuthInitialState extends AuthState {}
 
+@CopyWith()
 class SignupState extends AuthState {
   String? name;
   String? email;
@@ -11,11 +16,13 @@ class SignupState extends AuthState {
   SignupState({this.name, this.email, this.password, this.confirmPassword});
 }
 
+@CopyWith()
 class SigninState extends AuthState {
   String? email;
   String? password;
+  String? errorMessage;
 
-  SigninState({this.email, this.password});
+  SigninState({this.email, this.password, this.errorMessage});
 }
 
 class AuthloadingState extends AuthState {}
