@@ -13,7 +13,9 @@ class AuthCubit extends Cubit<AuthState> {
         emit(SigninState());
       }
 
-      if (currentUser != null) {}
+      if (currentUser != null) {
+        emit(AuthenticatedState());
+      }
     });
   }
 
@@ -24,8 +26,11 @@ class AuthCubit extends Cubit<AuthState> {
       String additn = "$apiUrl?email=$email";
       final response = await http.get(Uri.parse(additn));
 
+      debugPrint(response.statusCode.toString());
+
       if (response.statusCode == 422 || response.statusCode == 404) {
         Map<String, dynamic> map = jsonDecode(response.body);
+        debugPrint(map['message']);
         signinErrorMessageChanged(map['message']);
       }
 
@@ -63,6 +68,11 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthenticatedState());
       }
     } catch (err) {}
+  }
+
+  Future<void> logout() async {
+    await FirebaseAuth.instance.signOut();
+    emit(SigninState());
   }
 
   void returnSignup() {
