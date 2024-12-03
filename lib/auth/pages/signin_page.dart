@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/auth/auth_cubit.dart';
 import 'package:campus_connect_frontend/auth/auth_state.dart';
+import 'package:campus_connect_frontend/auth/pages/signup_page.dart';
 import 'package:campus_connect_frontend/components/text_field.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
 import 'package:flutter/material.dart';
@@ -40,10 +41,23 @@ class SigninPage extends StatelessWidget {
                     onPressed: () {
                       authCubit.login(state.email!, state.password!);
                     },
-                    child: AutoSizeText("Login"))
+                    child: AutoSizeText("Login")),
+                SpacingConsts().smallHeightBetweenFields(context),
+                TextButton(
+                    onPressed: () {
+                      authCubit.returnSignup();
+                    },
+                    child: const AutoSizeText(
+                      "Sign Up",
+                      style: TextStyle(decoration: TextDecoration.underline),
+                    ))
               ],
             ),
           ));
+        }
+
+        if (state is AuthenticatedState) {
+          return const AutoSizeText("Authenticated");
         }
 
         return const AutoSizeText("Last resort sign in page");

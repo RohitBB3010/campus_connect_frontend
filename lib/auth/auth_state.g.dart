@@ -15,6 +15,8 @@ abstract class _$SignupStateCWProxy {
 
   SignupState confirmPassword(String? confirmPassword);
 
+  SignupState errorMessage(String? errorMessage);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SignupState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -26,6 +28,7 @@ abstract class _$SignupStateCWProxy {
     String? email,
     String? password,
     String? confirmPassword,
+    String? errorMessage,
   });
 }
 
@@ -49,6 +52,10 @@ class _$SignupStateCWProxyImpl implements _$SignupStateCWProxy {
       this(confirmPassword: confirmPassword);
 
   @override
+  SignupState errorMessage(String? errorMessage) =>
+      this(errorMessage: errorMessage);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SignupState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -61,6 +68,7 @@ class _$SignupStateCWProxyImpl implements _$SignupStateCWProxy {
     Object? email = const $CopyWithPlaceholder(),
     Object? password = const $CopyWithPlaceholder(),
     Object? confirmPassword = const $CopyWithPlaceholder(),
+    Object? errorMessage = const $CopyWithPlaceholder(),
   }) {
     return SignupState(
       name: name == const $CopyWithPlaceholder()
@@ -79,6 +87,10 @@ class _$SignupStateCWProxyImpl implements _$SignupStateCWProxy {
           ? _value.confirmPassword
           // ignore: cast_nullable_to_non_nullable
           : confirmPassword as String?,
+      errorMessage: errorMessage == const $CopyWithPlaceholder()
+          ? _value.errorMessage
+          // ignore: cast_nullable_to_non_nullable
+          : errorMessage as String?,
     );
   }
 }

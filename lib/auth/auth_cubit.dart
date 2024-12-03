@@ -22,15 +22,51 @@ class AuthCubit extends Cubit<AuthState> {
 
     try {
       String additn = "$apiUrl?email=$email";
-      debugPrint(additn);
       final response = await http.get(Uri.parse(additn));
-      debugPrint(response.statusCode.toString());
 
       if (response.statusCode == 422 || response.statusCode == 404) {
         Map<String, dynamic> map = jsonDecode(response.body);
         signinErrorMessageChanged(map['message']);
       }
+
+      if (response.statusCode == 200) {
+        FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+        emit(AuthenticatedState());
+      }
     } catch (err) {}
+  }
+
+  Future<void> signup(String name, String email, String password,
+      String confirmPassword) async {
+    try {
+      debugPrint("Inside func");
+
+      const signUpApi = "http://10.0.2.2:8000/auth/signUpMember";
+      Map<String, dynamic> body = {
+        "name": name,
+        "email": email,
+      };
+
+      final response = await http.post(Uri.parse(signUpApi),
+          body: jsonEncode(body),
+          headers: {"Content-type": "application/json"});
+
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
+
+      if (response.statusCode == 409 || response.statusCode == 422) {
+        emit((state as SignupState)
+            .copyWith(errorMessage: responseBody['message']));
+      } else {
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password);
+        emit(AuthenticatedState());
+      }
+    } catch (err) {}
+  }
+
+  void returnSignup() {
+    emit(SignupState());
   }
 
   void signinErrorMessageChanged(String errorMessage) {
@@ -43,5 +79,25 @@ class AuthCubit extends Cubit<AuthState> {
 
   void signinPasswordChanged(String password) {
     emit((state as SigninState).copyWith(password: password));
+  }
+
+  void signupErrorMessageChanged(String errorMessage) {
+    emit((state as SigninState).copyWith(errorMessage: errorMessage));
+  }
+
+  void signupEmailChanged(String email) {
+    emit((state as SignupState).copyWith(email: email));
+  }
+
+  void signupPasswordChanged(String password) {
+    emit((state as SignupState).copyWith(password: password));
+  }
+
+  void signupNameChanged(String name) {
+    emit((state as SignupState).copyWith(name: name));
+  }
+
+  void signupConfirmPasswordChanged(String confirmPassword) {
+    emit((state as SignupState).copyWith(confirmPassword: confirmPassword));
   }
 }

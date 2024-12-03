@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/auth/auth_cubit.dart';
 import 'package:campus_connect_frontend/auth/auth_state.dart';
 import 'package:campus_connect_frontend/auth/pages/signin_page.dart';
+import 'package:campus_connect_frontend/auth/pages/signup_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,12 +44,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
             if (state is SigninState) {
-              return SigninPage();
+              return const SigninPage();
             }
 
-            if (state is SignupState) {}
+            if (state is SignupState) {
+              return const SignupPage();
+            }
 
-            if (state is AuthenticatedState) {}
+            if (state is AuthenticatedState) {
+              return const AutoSizeText("Authenticated");
+            }
 
             return const AutoSizeText("Rohit");
           },

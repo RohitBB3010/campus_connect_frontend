@@ -12,8 +12,14 @@ class SignupState extends AuthState {
   String? email;
   String? password;
   String? confirmPassword;
+  String? errorMessage;
 
-  SignupState({this.name, this.email, this.password, this.confirmPassword});
+  SignupState(
+      {this.name,
+      this.email,
+      this.password,
+      this.confirmPassword,
+      this.errorMessage});
 }
 
 @CopyWith()
