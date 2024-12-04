@@ -19,10 +19,17 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(String? email, String? password) async {
     const String apiUrl = "http://10.0.2.2:8000/auth/checkUserExists";
 
     try {
+      if (email == null ||
+          email.isEmpty ||
+          password == null ||
+          password.isEmpty) {
+        return signinErrorMessageChanged("Please fill all fields");
+      }
+
       String additn = "$apiUrl?email=$email";
       final response = await http.get(Uri.parse(additn));
 
@@ -35,12 +42,21 @@ class AuthCubit extends Cubit<AuthState> {
       }
 
       if (response.statusCode == 200) {
-        FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
-        emit(AuthenticatedState());
+        try {
+          await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: email, password: password);
+          emit(AuthenticatedState());
+        } on FirebaseAuthException catch (authError) {
+          if (authError.code == 'invalid-credential') {
+            signinErrorMessageChanged("Invalid credentials!! Please try again");
+          } else {
+            signinErrorMessageChanged(
+                "Some error encounterred. Please try again");
+          }
+        }
       }
     } catch (err) {
-      signinErrorMessageChanged(err.toString());
+      signinErrorMessageChanged("Some error encounterred. Please try again");
     }
   }
 

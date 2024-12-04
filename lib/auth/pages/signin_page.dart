@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/auth/auth_cubit.dart';
 import 'package:campus_connect_frontend/auth/auth_state.dart';
+import 'package:campus_connect_frontend/components/custom_button.dart';
 import 'package:campus_connect_frontend/components/text_field.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
@@ -60,6 +61,41 @@ class SigninPage extends StatelessWidget {
                               ),
                             ),
                             SpacingConsts().smallHeightBetweenFields(context),
+                            if (state.errorMessage != null)
+                              Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          MediaQuery.of(context).size.width *
+                                              0.02,
+                                      vertical:
+                                          MediaQuery.of(context).size.height *
+                                              0.01),
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.error,
+                                        color: Colors.white,
+                                      ),
+                                      SpacingConsts()
+                                          .smallWidthBetweenFields(context),
+                                      AutoSizeText(
+                                        state.errorMessage!,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                            fontSize: 15.0,
+                                            color: Colors.white,
+                                            fontFamily: 'Nunito'),
+                                      ),
+                                    ],
+                                  )),
+                            if (state.errorMessage != null)
+                              SpacingConsts().smallHeightBetweenFields(context),
+                            SpacingConsts().smallHeightBetweenFields(context),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.8,
                               child: Column(
@@ -99,9 +135,22 @@ class SigninPage extends StatelessWidget {
                                       hintText: "Enter password",
                                       onChanged:
                                           authCubit.signinPasswordChanged),
+                                  SpacingConsts()
+                                      .smallHeightBetweenFields(context),
+                                  CustomButton(context, "Login",
+                                      ColorConsts().secondary_orange, () {
+                                    authCubit.login(
+                                        state.email!, state.password!);
+                                  }, 0.8, 0.06, 10)
                                 ],
                               ),
                             ),
+                            TextButton(
+                                onPressed: () {
+                                  authCubit.returnSignup();
+                                },
+                                child:
+                                    const AutoSizeText("New member? Sign up!!"))
                           ],
                         ),
                       ),
