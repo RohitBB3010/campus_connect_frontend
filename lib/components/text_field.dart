@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField(
+  CustomTextField(
       {super.key,
+      required this.fieldHeight,
       required this.fieldWidth,
-      this.fieldHeight,
-      required this.hintText,
+      this.hintText,
       this.prefixText,
-      this.icon,
+      this.prefixIconData,
       required this.onChanged,
       this.controller});
 
+  final double fieldHeight;
   final double fieldWidth;
-  final double? fieldHeight;
-  final String hintText;
+  final String? hintText;
   final String? prefixText;
-  final IconData? icon;
+  final IconData? prefixIconData;
   final void Function(String) onChanged;
   final TextEditingController? controller;
 
@@ -23,29 +23,20 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * fieldWidth,
-      height: fieldHeight != null
-          ? MediaQuery.of(context).size.height * fieldHeight!
-          : MediaQuery.of(context).size.height * 0.06,
+      height: MediaQuery.of(context).size.height * fieldHeight,
       child: TextFormField(
-        controller: controller,
         onChanged: onChanged,
-        style: TextStyle(color: Colors.black),
+        controller: controller,
         decoration: InputDecoration(
-            enabled: controller != null && !controller!.text.isNotEmpty
-                ? false
-                : true,
-            enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.black),
-                borderRadius: BorderRadius.circular(10.0)),
-            prefixIcon: icon != null ? Icon(icon, color: Colors.black) : null,
-            hintText: hintText,
-            hintStyle: const TextStyle(fontSize: 20.0, color: Colors.black),
-            contentPadding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.01,
-                horizontal: MediaQuery.of(context).size.width * 0.02),
             border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.black),
-                borderRadius: BorderRadius.circular(10.0))),
+                borderRadius: BorderRadius.circular(5),
+                borderSide: const BorderSide(color: Colors.black)),
+            hintText: hintText,
+            prefixText: prefixText,
+            prefixIcon: prefixIconData != null ? Icon(prefixIconData) : null,
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.02,
+                vertical: MediaQuery.of(context).size.height * 0.01)),
       ),
     );
   }

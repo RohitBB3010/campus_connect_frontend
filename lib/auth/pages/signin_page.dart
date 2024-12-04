@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/auth/auth_cubit.dart';
 import 'package:campus_connect_frontend/auth/auth_state.dart';
-import 'package:campus_connect_frontend/auth/pages/signup_page.dart';
 import 'package:campus_connect_frontend/components/text_field.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
@@ -16,103 +15,82 @@ class SigninPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        // if (state is SigninState) {
-        //   final authCubit = context.read<AuthCubit>();
-        //   return Scaffold(
-        //       body: SizedBox(
-        //     width: MediaQuery.of(context).size.width,
-        //     child: SingleChildScrollView(
-        //       child: Column(
-        //         crossAxisAlignment: CrossAxisAlignment.center,
-        //         children: [
-        //           SpacingConsts().customHeightBetweenFields(context, 0.3),
-        //           if (state.errorMessage != null)
-        //             AutoSizeText(state.errorMessage!),
-        //           if (state.errorMessage != null)
-        //             SpacingConsts().smallHeightBetweenFields(context),
-        //           CustomTextField(
-        //               fieldWidth: 0.6,
-        //               hintText: "Enter email",
-        //               onChanged: authCubit.signinEmailChanged),
-        //           SpacingConsts().smallHeightBetweenFields(context),
-        //           CustomTextField(
-        //               fieldWidth: 0.6,
-        //               hintText: "Enter password",
-        //               onChanged: authCubit.signinPasswordChanged),
-        //           SpacingConsts().smallHeightBetweenFields(context),
-        //           ElevatedButton(
-        //               onPressed: () {
-        //                 authCubit.login(state.email!, state.password!);
-        //               },
-        //               child: AutoSizeText("Login")),
-        //           SpacingConsts().smallHeightBetweenFields(context),
-        //           TextButton(
-        //               onPressed: () {
-        //                 authCubit.returnSignup();
-        //               },
-        //               child: const AutoSizeText(
-        //                 "Sign Up",
-        //                 style: TextStyle(decoration: TextDecoration.underline),
-        //               ))
-        //         ],
-        //       ),
-        //     ),
-        //   ));
-        // }
+        final authCubit = context.read<AuthCubit>();
 
         if (state is SigninState) {
           return Scaffold(
-            body: SingleChildScrollView(
-              child: Column(
+            body: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Stack(
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.4,
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("assets/auth_bg.png"),
-                                  fit: BoxFit.cover)),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/auth_bg.png"),
+                            fit: BoxFit.cover)),
+                  ),
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.35,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: ColorConsts().primary,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
                         ),
-                        Positioned(
-                          top: MediaQuery.of(context).size.height * 0.36,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.7,
-                            padding: const EdgeInsets.only(
-                                bottom: 20), // Add padding for content spacing
-                            decoration: BoxDecoration(
-                              color: ColorConsts().primary,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SpacingConsts().mediumHeightBetweenFields(context),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              child: const AutoSizeText(
+                                "Connect. Coordinate. Collaborate",
+                                maxLines: 1,
+                                style: TextStyle(fontSize: 25.0),
                               ),
                             ),
-                            child: Column(
-                              children: [
-                                SpacingConsts()
-                                    .mediumHeightBetweenFields(context),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  child: const AutoSizeText(
-                                    "Connect. Coordinate. Collaborate",
-                                    maxLines: 1,
-                                    style: TextStyle(fontSize: 25.0),
-                                  ),
-                                ),
-                                // Add more content below if needed
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.5),
-                              ],
+                            SpacingConsts().smallHeightBetweenFields(context),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const AutoSizeText("Email"),
+                                  CustomTextField(
+                                      fieldWidth: 0.7,
+                                      fieldHeight: 0.07,
+                                      prefixIconData: Icons.email,
+                                      hintText: "Enter email",
+                                      onChanged: authCubit.signinEmailChanged),
+                                ],
+                              ),
                             ),
-                          ),
+                            SpacingConsts().smallHeightBetweenFields(context),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const AutoSizeText("Password"),
+                                  CustomTextField(
+                                      fieldWidth: 0.7,
+                                      fieldHeight: 0.07,
+                                      prefixIconData: Icons.password,
+                                      hintText: "Enter password",
+                                      onChanged:
+                                          authCubit.signinPasswordChanged),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ],

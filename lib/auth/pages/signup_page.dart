@@ -30,21 +30,25 @@ class SignupPage extends StatelessWidget {
                   SpacingConsts().smallHeightBetweenFields(context),
                   CustomTextField(
                       fieldWidth: 0.6,
+                      fieldHeight: 0.8,
                       hintText: "Enter name",
                       onChanged: authCubit.signupNameChanged),
                   SpacingConsts().smallHeightBetweenFields(context),
                   CustomTextField(
                       fieldWidth: 0.6,
+                      fieldHeight: 0.8,
                       hintText: "Enter email",
                       onChanged: authCubit.signupEmailChanged),
                   SpacingConsts().smallHeightBetweenFields(context),
                   CustomTextField(
                       fieldWidth: 0.6,
+                      fieldHeight: 0.8,
                       hintText: "Enter password",
                       onChanged: authCubit.signupPasswordChanged),
                   SpacingConsts().smallHeightBetweenFields(context),
                   CustomTextField(
                       fieldWidth: 0.6,
+                      fieldHeight: 0.8,
                       hintText: "Enter confirm password",
                       onChanged: authCubit.signupConfirmPasswordChanged),
                   SpacingConsts().smallHeightBetweenFields(context),

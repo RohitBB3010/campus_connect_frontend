@@ -14,7 +14,7 @@ class SpacingConsts {
   }
 
   SizedBox smallHeightBetweenFields(BuildContext context) {
-    return SizedBox(height: MediaQuery.of(context).size.height * 0.03);
+    return SizedBox(height: MediaQuery.of(context).size.height * 0.02);
   }
 
   SizedBox mediumHeightBetweenFields(BuildContext context) {
