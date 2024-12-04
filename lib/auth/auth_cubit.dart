@@ -39,7 +39,9 @@ class AuthCubit extends Cubit<AuthState> {
             .signInWithEmailAndPassword(email: email, password: password);
         emit(AuthenticatedState());
       }
-    } catch (err) {}
+    } catch (err) {
+      signinErrorMessageChanged(err.toString());
+    }
   }
 
   Future<void> signup(String name, String email, String password,
@@ -67,7 +69,9 @@ class AuthCubit extends Cubit<AuthState> {
             .createUserWithEmailAndPassword(email: email, password: password);
         emit(AuthenticatedState());
       }
-    } catch (err) {}
+    } catch (err) {
+      signupErrorMessageChanged(err.toString());
+    }
   }
 
   Future<void> logout() async {

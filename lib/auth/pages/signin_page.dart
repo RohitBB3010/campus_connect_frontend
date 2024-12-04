@@ -49,21 +49,30 @@ class SigninPage extends StatelessWidget {
                             SpacingConsts().mediumHeightBetweenFields(context),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.8,
-                              child: const AutoSizeText(
-                                "Connect. Coordinate. Collaborate",
-                                maxLines: 1,
-                                style: TextStyle(fontSize: 25.0),
+                              child: AutoSizeText(
+                                "Connect. Coordinate. Collaborate.",
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontFamily: 'MinorkSemiBold',
+                                    fontSize: 40,
+                                    color: Colors.black.withOpacity(0.8)),
                               ),
                             ),
                             SpacingConsts().smallHeightBetweenFields(context),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.7,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const AutoSizeText("Email"),
+                                  const AutoSizeText(
+                                    "Email",
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito', fontSize: 15),
+                                  ),
                                   CustomTextField(
-                                      fieldWidth: 0.7,
+                                      fieldWidth: 0.8,
                                       fieldHeight: 0.07,
                                       prefixIconData: Icons.email,
                                       hintText: "Enter email",
@@ -73,13 +82,18 @@ class SigninPage extends StatelessWidget {
                             ),
                             SpacingConsts().smallHeightBetweenFields(context),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.7,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const AutoSizeText("Password"),
+                                  const AutoSizeText(
+                                    "Password",
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito', fontSize: 15),
+                                  ),
                                   CustomTextField(
-                                      fieldWidth: 0.7,
+                                      fieldWidth: 0.8,
                                       fieldHeight: 0.07,
                                       prefixIconData: Icons.password,
                                       hintText: "Enter password",

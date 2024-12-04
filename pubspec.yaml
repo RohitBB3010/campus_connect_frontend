@@ -38,9 +38,36 @@ flutter:
     - assets/
 
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: Minork
+      fonts:
+        - asset: fonts/Fontspring-DEMO-minorksans-regular.otf
+
+    - family: MinorkItalic
+      fonts:
+        - asset: fonts/Fontspring-DEMO-minorksans-italic.otf
+
+    - family: MinorkSemiBold
+      fonts:
+        - asset: fonts/Fontspring-DEMO-minorksans-semibold.otf
+
+    - family: MinorkSemiBoldItalic
+      fonts:
+        - asset: fonts/Fontspring-DEMO-minorksans-semibolditalic.otf
+
+    - family: Nunito
+      fonts:
+        - asset: fonts/Nunito-Regular.ttf
+
+    - family: NunitoItalic
+      fonts:
+        - asset: fonts/Nunito-Italic.ttf
+
+    - family: NunitoSemiBold
+      fonts:
+        - asset: fonts/Nunito-SemiBold.ttf
+
+    - family: NunitoSemiBoldItalic
+      fonts:
+        - asset: fonts/Nunito-SemiBoldItalic.ttf
+

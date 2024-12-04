@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  CustomTextField(
+  const CustomTextField(
       {super.key,
       required this.fieldHeight,
       required this.fieldWidth,
@@ -32,8 +32,12 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 borderSide: const BorderSide(color: Colors.black)),
             hintText: hintText,
+            hintStyle:
+                const TextStyle(color: Color(0xff606060), fontFamily: 'Nunito'),
             prefixText: prefixText,
-            prefixIcon: prefixIconData != null ? Icon(prefixIconData) : null,
+            prefixIcon: prefixIconData != null
+                ? Icon(prefixIconData, color: const Color(0xff606060))
+                : null,
             contentPadding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.02,
                 vertical: MediaQuery.of(context).size.height * 0.01)),
