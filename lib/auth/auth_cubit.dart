@@ -145,6 +145,21 @@ class AuthCubit extends Cubit<AuthState> {
     emit((state as SignupState).copyWith(errorMessage: errorMessage));
   }
 
+  void signInPasswordVisibilityChanged() {
+    bool value = (state as SigninState).isPasswordVisible ?? false;
+    emit((state as SigninState).copyWith(isPasswordVisible: !value));
+  }
+
+  void signupPasswordVisibilityChanged() {
+    bool value = (state as SignupState).isPasswordVisible ?? false;
+    emit((state as SignupState).copyWith(isPasswordVisible: !value));
+  }
+
+  void signupConfirmPasswordVisibilityChanged() {
+    bool value = (state as SignupState).isConfirmPasswordVisible ?? false;
+    emit((state as SignupState).copyWith(isConfirmPasswordVisible: !value));
+  }
+
   void signupEmailChanged(String email) {
     emit((state as SignupState).copyWith(email: email));
   }

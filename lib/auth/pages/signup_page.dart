@@ -170,6 +170,16 @@ class SignupPage extends StatelessWidget {
                                             fieldHeight: 0.07,
                                             prefixIconData: Icons.password,
                                             hintText: "Enter password",
+                                            obscureBool:
+                                                state.isPasswordVisible,
+                                            suffixIconData:
+                                                state.isPasswordVisible != null
+                                                    ? state.isPasswordVisible!
+                                                        ? Icons.visibility_off
+                                                        : Icons.visibility
+                                                    : Icons.visibility,
+                                            suffixIconPressed: authCubit
+                                                .signupPasswordVisibilityChanged,
                                             onChanged: authCubit
                                                 .signupPasswordChanged),
                                       ],
@@ -193,6 +203,18 @@ class SignupPage extends StatelessWidget {
                                             fieldWidth: 0.8,
                                             fieldHeight: 0.07,
                                             prefixIconData: Icons.password,
+                                            obscureBool:
+                                                state.isConfirmPasswordVisible,
+                                            suffixIconData: state
+                                                        .isConfirmPasswordVisible !=
+                                                    null
+                                                ? state
+                                                        .isConfirmPasswordVisible!
+                                                    ? Icons.visibility_off
+                                                    : Icons.visibility
+                                                : Icons.visibility,
+                                            suffixIconPressed: authCubit
+                                                .signupConfirmPasswordVisibilityChanged,
                                             hintText: "Enter confirm password",
                                             onChanged: authCubit
                                                 .signupConfirmPasswordChanged),

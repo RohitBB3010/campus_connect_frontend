@@ -9,7 +9,10 @@ class CustomTextField extends StatelessWidget {
       this.prefixText,
       this.prefixIconData,
       required this.onChanged,
-      this.controller});
+      this.controller,
+      this.obscureBool,
+      this.suffixIconData,
+      this.suffixIconPressed});
 
   final double fieldHeight;
   final double fieldWidth;
@@ -18,6 +21,9 @@ class CustomTextField extends StatelessWidget {
   final IconData? prefixIconData;
   final void Function(String) onChanged;
   final TextEditingController? controller;
+  final bool? obscureBool;
+  final IconData? suffixIconData;
+  final void Function()? suffixIconPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +33,7 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         onChanged: onChanged,
         controller: controller,
+        obscureText: obscureBool ?? false,
         decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
@@ -37,6 +44,10 @@ class CustomTextField extends StatelessWidget {
             prefixText: prefixText,
             prefixIcon: prefixIconData != null
                 ? Icon(prefixIconData, color: const Color(0xff606060))
+                : null,
+            suffixIcon: suffixIconData != null
+                ? IconButton(
+                    onPressed: suffixIconPressed, icon: Icon(suffixIconData))
                 : null,
             contentPadding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.02,
