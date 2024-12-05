@@ -13,14 +13,9 @@ class HomePage extends StatelessWidget {
       builder: (context, state) {
         final authCubit = context.read<AuthCubit>();
 
-        return TextButton(
-            onPressed: () {
-              authCubit.logout();
-            },
-            child: AutoSizeText(
-              "Logout",
-              style: TextStyle(color: Colors.white, fontSize: 30.0),
-            ));
+        return Scaffold(
+          body: AutoSizeText("Rohit"),
+        );
       },
     );
   }
