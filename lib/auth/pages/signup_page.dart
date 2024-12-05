@@ -83,13 +83,15 @@ class SignupPage extends StatelessWidget {
                                       ),
                                       SpacingConsts()
                                           .smallWidthBetweenFields(context),
-                                      AutoSizeText(
-                                        state.errorMessage!,
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                            fontSize: 15.0,
-                                            color: Colors.white,
-                                            fontFamily: 'Nunito'),
+                                      Expanded(
+                                        child: AutoSizeText(
+                                          state.errorMessage!,
+                                          maxLines: 2,
+                                          style: const TextStyle(
+                                              fontSize: 15.0,
+                                              color: Colors.white,
+                                              fontFamily: 'Nunito'),
+                                        ),
                                       ),
                                     ],
                                   )),
@@ -140,12 +142,28 @@ class SignupPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const AutoSizeText(
-                                          "Password",
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                              fontFamily: 'Nunito',
-                                              fontSize: 15),
+                                        const Row(
+                                          children: [
+                                            AutoSizeText(
+                                              "Password",
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  fontFamily: 'Nunito',
+                                                  fontSize: 15),
+                                            ),
+                                            Tooltip(
+                                              triggerMode:
+                                                  TooltipTriggerMode.tap,
+                                              message:
+                                                  "Password must include:\n- At least 2 numbers\n- At least 6 letters\n- At least 1 special character",
+                                              padding: EdgeInsets.all(8.0),
+                                              margin: EdgeInsets.only(
+                                                  top:
+                                                      10.0), // Adjust the tooltip position
+                                              child: Icon(Icons.info_outline,
+                                                  size: 20),
+                                            )
+                                          ],
                                         ),
                                         CustomTextField(
                                             fieldWidth: 0.8,
@@ -185,11 +203,8 @@ class SignupPage extends StatelessWidget {
                                       .smallHeightBetweenFields(context),
                                   CustomButton(context, "Signup",
                                       ColorConsts().secondary_orange, () {
-                                    authCubit.signup(
-                                        state.name!,
-                                        state.email!,
-                                        state.password!,
-                                        state.confirmPassword!);
+                                    authCubit.signup(state.name, state.email,
+                                        state.password, state.confirmPassword);
                                   }, 0.8, 0.06, 10)
                                 ],
                               ),

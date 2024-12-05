@@ -60,10 +60,34 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> signup(String name, String email, String password,
-      String confirmPassword) async {
+  Future<void> signup(String? name, String? email, String? password,
+      String? confirmPassword) async {
     try {
-      debugPrint("Inside func");
+      if (name == null || name.isEmpty) {
+        return signupErrorMessageChanged("Please enter a valid name");
+      }
+
+      if (email == null || email.isEmpty) {
+        return signupErrorMessageChanged("Please enter a valid email");
+      }
+
+      if (confirmPassword == null || confirmPassword.isEmpty) {
+        return signupErrorMessageChanged(
+            "Please enter a valid confirm password");
+      }
+
+      if (password == null || password.isEmpty) {
+        return signupErrorMessageChanged("Please enter a valid password");
+      }
+
+      if (password != confirmPassword) {
+        return signupErrorMessageChanged("Passwords do not match");
+      }
+
+      if (!passwordMatch(password)) {
+        return signupErrorMessageChanged(
+            "The password should contain atleast 6 letters, 2 digits and 1 symbol");
+      }
 
       const signUpApi = "http://10.0.2.2:8000/auth/signUpMember";
       Map<String, dynamic> body = {
@@ -82,7 +106,7 @@ class AuthCubit extends Cubit<AuthState> {
             .copyWith(errorMessage: responseBody['message']));
       } else {
         await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
+            .createUserWithEmailAndPassword(email: email!, password: password!);
         emit(AuthenticatedState());
       }
     } catch (err) {
@@ -99,6 +123,12 @@ class AuthCubit extends Cubit<AuthState> {
     emit(SignupState());
   }
 
+  bool passwordMatch(String password) {
+    final regex = RegExp(
+        r'^(?=(.*[0-9]){2,})(?=(.*[a-zA-Z]){6,})(?=.*[!@#$%^&*(),.?":{}|<>]).{9,}$');
+    return regex.hasMatch(password);
+  }
+
   void signinErrorMessageChanged(String errorMessage) {
     emit((state as SigninState).copyWith(errorMessage: errorMessage));
   }
@@ -112,7 +142,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void signupErrorMessageChanged(String errorMessage) {
-    emit((state as SigninState).copyWith(errorMessage: errorMessage));
+    emit((state as SignupState).copyWith(errorMessage: errorMessage));
   }
 
   void signupEmailChanged(String email) {

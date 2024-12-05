@@ -17,6 +17,10 @@ abstract class _$SignupStateCWProxy {
 
   SignupState errorMessage(String? errorMessage);
 
+  SignupState isPasswordVisible(bool? isPasswordVisible);
+
+  SignupState isConfirmPasswordVisible(bool? isConfirmPasswordVisible);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SignupState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -29,6 +33,8 @@ abstract class _$SignupStateCWProxy {
     String? password,
     String? confirmPassword,
     String? errorMessage,
+    bool? isPasswordVisible,
+    bool? isConfirmPasswordVisible,
   });
 }
 
@@ -56,6 +62,14 @@ class _$SignupStateCWProxyImpl implements _$SignupStateCWProxy {
       this(errorMessage: errorMessage);
 
   @override
+  SignupState isPasswordVisible(bool? isPasswordVisible) =>
+      this(isPasswordVisible: isPasswordVisible);
+
+  @override
+  SignupState isConfirmPasswordVisible(bool? isConfirmPasswordVisible) =>
+      this(isConfirmPasswordVisible: isConfirmPasswordVisible);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SignupState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -69,6 +83,8 @@ class _$SignupStateCWProxyImpl implements _$SignupStateCWProxy {
     Object? password = const $CopyWithPlaceholder(),
     Object? confirmPassword = const $CopyWithPlaceholder(),
     Object? errorMessage = const $CopyWithPlaceholder(),
+    Object? isPasswordVisible = const $CopyWithPlaceholder(),
+    Object? isConfirmPasswordVisible = const $CopyWithPlaceholder(),
   }) {
     return SignupState(
       name: name == const $CopyWithPlaceholder()
@@ -91,6 +107,15 @@ class _$SignupStateCWProxyImpl implements _$SignupStateCWProxy {
           ? _value.errorMessage
           // ignore: cast_nullable_to_non_nullable
           : errorMessage as String?,
+      isPasswordVisible: isPasswordVisible == const $CopyWithPlaceholder()
+          ? _value.isPasswordVisible
+          // ignore: cast_nullable_to_non_nullable
+          : isPasswordVisible as bool?,
+      isConfirmPasswordVisible:
+          isConfirmPasswordVisible == const $CopyWithPlaceholder()
+              ? _value.isConfirmPasswordVisible
+              // ignore: cast_nullable_to_non_nullable
+              : isConfirmPasswordVisible as bool?,
     );
   }
 }
@@ -108,6 +133,8 @@ abstract class _$SigninStateCWProxy {
 
   SigninState errorMessage(String? errorMessage);
 
+  SigninState isPasswordVisible(bool? isPasswordVisible);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SigninState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -118,6 +145,7 @@ abstract class _$SigninStateCWProxy {
     String? email,
     String? password,
     String? errorMessage,
+    bool? isPasswordVisible,
   });
 }
 
@@ -138,6 +166,10 @@ class _$SigninStateCWProxyImpl implements _$SigninStateCWProxy {
       this(errorMessage: errorMessage);
 
   @override
+  SigninState isPasswordVisible(bool? isPasswordVisible) =>
+      this(isPasswordVisible: isPasswordVisible);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SigninState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -149,6 +181,7 @@ class _$SigninStateCWProxyImpl implements _$SigninStateCWProxy {
     Object? email = const $CopyWithPlaceholder(),
     Object? password = const $CopyWithPlaceholder(),
     Object? errorMessage = const $CopyWithPlaceholder(),
+    Object? isPasswordVisible = const $CopyWithPlaceholder(),
   }) {
     return SigninState(
       email: email == const $CopyWithPlaceholder()
@@ -163,6 +196,10 @@ class _$SigninStateCWProxyImpl implements _$SigninStateCWProxy {
           ? _value.errorMessage
           // ignore: cast_nullable_to_non_nullable
           : errorMessage as String?,
+      isPasswordVisible: isPasswordVisible == const $CopyWithPlaceholder()
+          ? _value.isPasswordVisible
+          // ignore: cast_nullable_to_non_nullable
+          : isPasswordVisible as bool?,
     );
   }
 }
