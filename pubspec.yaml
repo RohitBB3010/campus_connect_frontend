@@ -23,6 +23,7 @@ dependencies:
   copy_with_extension_gen: ^5.0.4
   build_runner: ^2.4.11
   auto_size_text: ^3.0.0
+  outline_material_icons: ^1.0.0
 
 dev_dependencies:
   flutter_test:
