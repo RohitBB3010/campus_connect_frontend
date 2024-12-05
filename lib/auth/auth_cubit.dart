@@ -123,6 +123,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(SignupState());
   }
 
+  void returnSignin() {
+    emit(SigninState());
+  }
+
   bool passwordMatch(String password) {
     final regex = RegExp(
         r'^(?=(.*[0-9]){2,})(?=(.*[a-zA-Z]){6,})(?=.*[!@#$%^&*(),.?":{}|<>]).{9,}$');

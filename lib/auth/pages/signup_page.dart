@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/auth/auth_cubit.dart';
 import 'package:campus_connect_frontend/auth/auth_state.dart';
+import 'package:campus_connect_frontend/auth/pages/signin_page.dart';
 import 'package:campus_connect_frontend/components/custom_button.dart';
 import 'package:campus_connect_frontend/components/text_field.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
@@ -233,7 +234,7 @@ class SignupPage extends StatelessWidget {
                             ),
                             TextButton(
                                 onPressed: () {
-                                  authCubit.returnSignup();
+                                  authCubit.returnSignin();
                                 },
                                 child: const AutoSizeText(
                                     "Already have an account? SignIn"))
@@ -250,6 +251,10 @@ class SignupPage extends StatelessWidget {
 
         if (state is AuthenticatedState) {
           return const HomePage();
+        }
+
+        if (state is SigninState) {
+          return const SigninPage();
         }
 
         return const AutoSizeText("Last resort sign in page");
