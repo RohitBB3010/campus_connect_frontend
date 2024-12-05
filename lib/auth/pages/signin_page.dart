@@ -83,13 +83,15 @@ class SigninPage extends StatelessWidget {
                                       ),
                                       SpacingConsts()
                                           .smallWidthBetweenFields(context),
-                                      AutoSizeText(
-                                        state.errorMessage!,
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                            fontSize: 15.0,
-                                            color: Colors.white,
-                                            fontFamily: 'Nunito'),
+                                      Expanded(
+                                        child: AutoSizeText(
+                                          state.errorMessage!,
+                                          maxLines: 2,
+                                          style: const TextStyle(
+                                              fontSize: 15.0,
+                                              color: Colors.white,
+                                              fontFamily: 'Nunito'),
+                                        ),
                                       ),
                                     ],
                                   )),
