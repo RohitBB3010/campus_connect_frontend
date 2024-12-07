@@ -9,7 +9,11 @@ class User {
   List<CommitteeDetails>? committees;
   String? imageUrl;
 
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
   User({this.name, this.email, this.committees});
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }
 
 @JsonSerializable()
