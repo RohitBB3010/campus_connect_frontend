@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController(initialPage: 0);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,9 +45,10 @@ class _HomePageState extends State<HomePage> {
                     iconSize: 33.0,
                     icon: Icon(
                       OMIcons.group,
-                      color: _pageController.page != 0.0
-                          ? const Color(0xff2F3E46)
-                          : ColorConsts().primary,
+                      color: (_pageController.hasClients &&
+                              _pageController.page == 0.0)
+                          ? ColorConsts().primary
+                          : const Color(0xff2F3E46),
                     ),
                   ),
                   IconButton(
@@ -58,9 +60,10 @@ class _HomePageState extends State<HomePage> {
                       iconSize: 30.0,
                       icon: Icon(
                         OMIcons.eventAvailable,
-                        color: _pageController.page != 1.0
-                            ? const Color(0xff2F3E46)
-                            : Colors.black,
+                        color: (_pageController.hasClients &&
+                                _pageController.page == 1.0)
+                            ? ColorConsts().primary
+                            : const Color(0xff2F3E46),
                       )),
                   IconButton(
                       onPressed: () {
@@ -71,9 +74,10 @@ class _HomePageState extends State<HomePage> {
                       iconSize: 30.0,
                       icon: Icon(
                         OMIcons.calendarToday,
-                        color: _pageController.page != 2.0
-                            ? const Color(0xff2F3E46)
-                            : Colors.black,
+                        color: (_pageController.hasClients &&
+                                _pageController.page == 2.0)
+                            ? ColorConsts().primary
+                            : const Color(0xff2F3E46),
                       )),
                   IconButton(
                       onPressed: () {
@@ -84,9 +88,10 @@ class _HomePageState extends State<HomePage> {
                       iconSize: 30.0,
                       icon: Icon(
                         OMIcons.person,
-                        color: _pageController.page != 3.0
-                            ? const Color(0xff2F3E46)
-                            : Colors.black,
+                        color: (_pageController.hasClients &&
+                                _pageController.page == 3.0)
+                            ? ColorConsts().primary
+                            : const Color(0xff2F3E46),
                       ))
                 ],
               ),
@@ -96,11 +101,15 @@ class _HomePageState extends State<HomePage> {
           onPageChanged: (int) {
             debugPrint(_pageController.page.toString());
           },
-          children: const [
-            CommitteesPage(),
-            AnnouncementsPage(),
-            CalendarPage(),
-            ProfilePage()
+          children: [
+            const CommitteesPage(),
+            const AnnouncementsPage(),
+            const CalendarPage(),
+            BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                return const ProfilePage();
+              },
+            )
           ],
         ),
       ),

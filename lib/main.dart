@@ -3,6 +3,7 @@ import 'package:campus_connect_frontend/auth/auth_cubit.dart';
 import 'package:campus_connect_frontend/auth/auth_state.dart';
 import 'package:campus_connect_frontend/auth/pages/signin_page.dart';
 import 'package:campus_connect_frontend/auth/pages/signup_page.dart';
+import 'package:campus_connect_frontend/components/loading_page.dart';
 import 'package:campus_connect_frontend/home/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
