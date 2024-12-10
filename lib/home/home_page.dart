@@ -1,12 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/auth/auth_cubit.dart';
 import 'package:campus_connect_frontend/auth/auth_state.dart';
-import 'package:campus_connect_frontend/components/loading_page.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/home/announcements/announcements.dart';
 import 'package:campus_connect_frontend/home/calendar/calendar_page.dart';
-import 'package:campus_connect_frontend/home/home_page_cubit.dart';
-import 'package:campus_connect_frontend/home/home_page_state.dart';
 import 'package:campus_connect_frontend/home/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,8 +58,9 @@ class _HomePageState extends State<HomePage> {
                     iconSize: 30.0,
                     icon: Icon(
                       OMIcons.eventAvailable,
-                      color: (_pageController.hasClients &&
-                              _pageController.page == 0.0)
+                      color: (_pageController.hasClients
+                              ? _pageController.page == 0.0
+                              : _pageController.initialPage == 0)
                           ? ColorConsts().primary
                           : const Color(0xff2F3E46),
                     ),
@@ -77,8 +74,9 @@ class _HomePageState extends State<HomePage> {
                     iconSize: 30.0,
                     icon: Icon(
                       OMIcons.calendarToday,
-                      color: (_pageController.hasClients &&
-                              _pageController.page == 1.0)
+                      color: (_pageController.hasClients
+                              ? _pageController.page == 1.0
+                              : _pageController.initialPage == 1)
                           ? ColorConsts().primary
                           : const Color(0xff2F3E46),
                     ),
@@ -92,8 +90,9 @@ class _HomePageState extends State<HomePage> {
                     iconSize: 30.0,
                     icon: Icon(
                       OMIcons.person,
-                      color: (_pageController.hasClients &&
-                              _pageController.page == 2.0)
+                      color: (_pageController.hasClients
+                              ? _pageController.page == 2.0
+                              : _pageController.initialPage == 2)
                           ? ColorConsts().primary
                           : const Color(0xff2F3E46),
                     ),
