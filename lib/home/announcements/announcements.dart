@@ -9,17 +9,6 @@ class AnnouncementsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomePageCubit(),
-      child: BlocBuilder<HomePageCubit, HomeState>(
-        builder: (context, state) {
-          return IconButton(
-              onPressed: () {
-                context.read<HomePageCubit>().fetchHomePage();
-              },
-              icon: Icon(Icons.abc));
-        },
-      ),
-    );
+    return const Center(child: AutoSizeText("Events Page"));
   }
 }
