@@ -52,6 +52,7 @@ class CustomTextField extends StatelessWidget {
             contentPadding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.02,
                 vertical: MediaQuery.of(context).size.height * 0.01)),
+        style: const TextStyle(fontFamily: 'Nunito'),
       ),
     );
   }

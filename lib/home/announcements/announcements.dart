@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:campus_connect_frontend/home/home_page_cubit.dart';
-import 'package:campus_connect_frontend/home/home_page_state.dart';
+import 'package:campus_connect_frontend/home/profile/profile_cubit.dart';
+import 'package:campus_connect_frontend/home/profile/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
