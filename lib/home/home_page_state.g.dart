@@ -6,65 +6,63 @@ part of 'home_page_state.dart';
 // CopyWithGenerator
 // **************************************************************************
 
-abstract class _$HomePageLoadedStateCWProxy {
-  HomePageLoadedState pageNumber(int pageNumber);
+abstract class _$HomeLoadedStateCWProxy {
+  HomeLoadedState pageNumber(int pageNumber);
 
-  HomePageLoadedState member(User member);
+  HomeLoadedState user(User user);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `HomePageLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `HomeLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// HomePageLoadedState(...).copyWith(id: 12, name: "My name")
+  /// HomeLoadedState(...).copyWith(id: 12, name: "My name")
   /// ````
-  HomePageLoadedState call({
+  HomeLoadedState call({
     int? pageNumber,
-    User? member,
+    User? user,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfHomePageLoadedState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfHomePageLoadedState.copyWith.fieldName(...)`
-class _$HomePageLoadedStateCWProxyImpl implements _$HomePageLoadedStateCWProxy {
-  const _$HomePageLoadedStateCWProxyImpl(this._value);
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfHomeLoadedState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfHomeLoadedState.copyWith.fieldName(...)`
+class _$HomeLoadedStateCWProxyImpl implements _$HomeLoadedStateCWProxy {
+  const _$HomeLoadedStateCWProxyImpl(this._value);
 
-  final HomePageLoadedState _value;
-
-  @override
-  HomePageLoadedState pageNumber(int pageNumber) =>
-      this(pageNumber: pageNumber);
+  final HomeLoadedState _value;
 
   @override
-  HomePageLoadedState member(User member) => this(member: member);
+  HomeLoadedState pageNumber(int pageNumber) => this(pageNumber: pageNumber);
+
+  @override
+  HomeLoadedState user(User user) => this(user: user);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `HomePageLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `HomeLoadedState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// HomePageLoadedState(...).copyWith(id: 12, name: "My name")
+  /// HomeLoadedState(...).copyWith(id: 12, name: "My name")
   /// ````
-  HomePageLoadedState call({
+  HomeLoadedState call({
     Object? pageNumber = const $CopyWithPlaceholder(),
-    Object? member = const $CopyWithPlaceholder(),
+    Object? user = const $CopyWithPlaceholder(),
   }) {
-    return HomePageLoadedState(
+    return HomeLoadedState(
       pageNumber:
           pageNumber == const $CopyWithPlaceholder() || pageNumber == null
               ? _value.pageNumber
               // ignore: cast_nullable_to_non_nullable
               : pageNumber as int,
-      member: member == const $CopyWithPlaceholder() || member == null
-          ? _value.member
+      user: user == const $CopyWithPlaceholder() || user == null
+          ? _value.user
           // ignore: cast_nullable_to_non_nullable
-          : member as User,
+          : user as User,
     );
   }
 }
 
-extension $HomePageLoadedStateCopyWith on HomePageLoadedState {
-  /// Returns a callable class that can be used as follows: `instanceOfHomePageLoadedState.copyWith(...)` or like so:`instanceOfHomePageLoadedState.copyWith.fieldName(...)`.
+extension $HomeLoadedStateCopyWith on HomeLoadedState {
+  /// Returns a callable class that can be used as follows: `instanceOfHomeLoadedState.copyWith(...)` or like so:`instanceOfHomeLoadedState.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
-  _$HomePageLoadedStateCWProxy get copyWith =>
-      _$HomePageLoadedStateCWProxyImpl(this);
+  _$HomeLoadedStateCWProxy get copyWith => _$HomeLoadedStateCWProxyImpl(this);
 }

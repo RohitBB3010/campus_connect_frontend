@@ -3,16 +3,16 @@ import '../models/user_model.dart';
 
 part 'home_page_state.g.dart';
 
-class HomePageState {}
+class HomeState {}
 
-class HomePageLoadingState extends HomePageState {}
+class HomeLoadingState extends HomeState {}
 
 @CopyWith()
-class HomePageLoadedState extends HomePageState {
+class HomeLoadedState extends HomeState {
   int pageNumber;
-  User member;
+  User user;
 
-  HomePageLoadedState({required this.pageNumber, required this.member});
+  HomeLoadedState({required this.pageNumber, required this.user});
 }
 
-class HomePageErrorState extends HomePageState {}
+class HomeErrorState extends HomeState {}

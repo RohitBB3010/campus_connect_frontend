@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitialState()) {
     FirebaseAuth.instance.authStateChanges().listen((User? currentUser) {
-      debugPrint("Current user is : $currentUser");
       if (currentUser == null) {
         emit(SigninState());
       }
