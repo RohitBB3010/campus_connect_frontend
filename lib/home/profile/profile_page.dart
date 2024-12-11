@@ -30,8 +30,6 @@ class ProfilePage extends StatelessWidget {
               nameController.text = state.modName!;
               emailController.text = state.modEmail!;
 
-              String imageUrl = "http://10.0.2.2:8000/${state.user!.imageUrl}";
-              debugPrint(imageUrl);
               return Scaffold(
                 appBar: AppBar(
                     toolbarHeight: MediaQuery.of(context).size.height * 0.1,

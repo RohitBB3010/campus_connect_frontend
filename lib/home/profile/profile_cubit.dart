@@ -11,9 +11,11 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileState());
 
   Future<void> fetchHomePage() async {
-    String uri =
-        'http://10.0.2.2:8000/home/fetch-home?email=rohitb.bhandwalkar1@gmail.com';
+    // String uri =
+    //     'http://10.0.2.2:8000/home/fetch-home?email=rohitb.bhandwalkar1@gmail.com';
 
+    String uri =
+        'http://10.0.2.2:8000/home/fetch-home?email=zara.ahmed@example.com';
     try {
       emit(ProfileLoadingState());
 
@@ -28,6 +30,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       if (user.imageUrl == null || user.imageUrl!.trim().isEmpty) {
         image = null;
       } else {
+        //String url = "http://10.0.2.2:8000/${user.imageUrl}";
         image = await getPlatformFileFromUrl(user.imageUrl!);
       }
 
@@ -51,7 +54,13 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<PlatformFile?> getPlatformFileFromUrl(String imageUrl) async {
     try {
-      final response = await http.get(Uri.parse(imageUrl));
+      String url = "http://10.0.2.2:8000/$imageUrl";
+
+      debugPrint(url);
+
+      final response = await http.get(Uri.parse(url));
+
+      debugPrint(response.statusCode.toString());
 
       if (response.statusCode == 200) {
         final bytes = response.bodyBytes;
