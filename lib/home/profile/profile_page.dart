@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:campus_connect_frontend/components/custom_button.dart';
 
 import 'package:campus_connect_frontend/components/loading_page.dart';
 import 'package:campus_connect_frontend/components/text_field.dart';
@@ -76,6 +77,8 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
               );
+            } else if (state is ProfileErrorState) {
+              return AutoSizeText(state.error);
             }
             return const AutoSizeText("Last case profile page");
           },
@@ -115,6 +118,7 @@ class ProfilePage extends StatelessWidget {
               fieldHeight: 0.05,
               controller: emailController,
               fieldWidth: 0.9,
+              isEnabled: false,
               onChanged: context.read<ProfileCubit>().emailChanged),
           SpacingConsts().smallHeightBetweenFields(context),
           const AutoSizeText(
@@ -148,9 +152,9 @@ class ProfilePage extends StatelessWidget {
           if (image == null)
             Container(
                 width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: MediaQuery.of(context).size.height * 0.05,
                 decoration: BoxDecoration(
-                    border: Border.all(color: ColorConsts().icons_bg),
+                    border: Border.all(color: Colors.black.withOpacity(0.5)),
                     borderRadius: BorderRadius.circular(10.0)),
                 child: IconButton(
                     onPressed: () async {
@@ -187,7 +191,10 @@ class ProfilePage extends StatelessWidget {
                               TextStyle(fontFamily: 'Nunito', fontSize: 18.0),
                         )
                       ],
-                    )))
+                    ))),
+          SpacingConsts().mediumHeightBetweenFields(context),
+          CustomButton(context, "Save", ColorConsts().secondary_orange, () {},
+              0.8, 0.06, 20)
         ],
       ),
     );

@@ -12,7 +12,8 @@ class CustomTextField extends StatelessWidget {
       this.controller,
       this.obscureBool,
       this.suffixIconData,
-      this.suffixIconPressed});
+      this.suffixIconPressed,
+      this.isEnabled});
 
   final double fieldHeight;
   final double fieldWidth;
@@ -24,6 +25,7 @@ class CustomTextField extends StatelessWidget {
   final bool? obscureBool;
   final IconData? suffixIconData;
   final void Function()? suffixIconPressed;
+  final bool? isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class CustomTextField extends StatelessWidget {
       width: MediaQuery.of(context).size.width * fieldWidth,
       height: MediaQuery.of(context).size.height * fieldHeight,
       child: TextFormField(
+        enabled: isEnabled,
         onChanged: onChanged,
         controller: controller,
         obscureText: obscureBool ?? false,

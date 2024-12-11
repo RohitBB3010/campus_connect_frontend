@@ -19,4 +19,8 @@ class ProfileLoadedState extends ProfileState {
       {required this.user, this.modName, this.modEmail, this.image});
 }
 
-class ProfileErrorState extends ProfileState {}
+class ProfileErrorState extends ProfileState {
+  String error;
+
+  ProfileErrorState({required this.error});
+}

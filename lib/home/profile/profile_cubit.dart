@@ -17,8 +17,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       emit(ProfileLoadingState());
 
-      debugPrint("in func");
-
       final response = await http.get(Uri.parse(uri));
 
       final Map<String, dynamic> responseBody = jsonDecode(response.body);
@@ -27,13 +25,11 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       PlatformFile? image;
 
-      if (user.imageUrl!.trim().isEmpty) {
+      if (user.imageUrl == null || user.imageUrl!.trim().isEmpty) {
         image = null;
       } else {
         image = await getPlatformFileFromUrl(user.imageUrl!);
       }
-
-      debugPrint(user.imageUrl!.trim().isEmpty.toString());
 
       emit(ProfileLoadedState(
           user: user,
@@ -41,7 +37,15 @@ class ProfileCubit extends Cubit<ProfileState> {
           modEmail: user.emailId,
           image: image));
     } catch (err) {
-      emit(ProfileErrorState());
+      emit(ProfileErrorState(error: err.toString()));
+    }
+  }
+
+  Future<void> editProfile(PlatformFile image, String id) async {
+    try {
+      //const stringUrl = "http://10.0.2.2:8000/home/upload-image?id="
+    } catch (err) {
+      debugPrint(err.toString());
     }
   }
 
