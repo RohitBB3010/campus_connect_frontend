@@ -27,10 +27,12 @@ CommitteeDetails _$CommitteeDetailsFromJson(Map<String, dynamic> json) =>
     CommitteeDetails(
       committeeName: json['committeeName'] as String?,
       position: json['position'] as String?,
+      logoUrl: json['logoUrl'] as String?,
     );
 
 Map<String, dynamic> _$CommitteeDetailsToJson(CommitteeDetails instance) =>
     <String, dynamic>{
       'committeeName': instance.committeeName,
       'position': instance.position,
+      'logoUrl': instance.logoUrl,
     };

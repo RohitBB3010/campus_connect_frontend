@@ -72,71 +72,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  // Future<void> editProfile(String newName, PlatformFile? image) async {
-  //   //try {
-  //   String uri = "http://10.0.2.2:8000/home/edit-profile";
-
-  //   Map<String, dynamic> requestBody;
-  //   String email = fb.FirebaseAuth.instance.currentUser!.email!;
-
-  //   if (image == null) {
-  //     requestBody = {"name": newName, "setImageNull": "true", "email": email};
-  //   } else {
-  //     String uriImgAdd =
-  //         "http://10.0.2.2:8000/home/upload_image?id=${(state as ProfileLoadedState).user!.id}&type=user";
-
-  //     debugPrint("Here after uriImgAdd");
-
-  //     var request = http.MultipartRequest('POST', Uri.parse(uriImgAdd));
-
-  //     debugPrint('File path: ${image.path}');
-
-  //     request.files.add(
-  //       await http.MultipartFile.fromPath(
-  //         'image',
-  //         image.path!,
-  //         contentType: MediaType('image', 'jpeg'),
-  //       ),
-  //     );
-
-  //     var response = await request.send();
-  //     var responseBody = await response.stream.bytesToString();
-
-  //     debugPrint("At response, Status Code: ${response.statusCode}");
-  //     if (response.statusCode == 500) {
-  //       debugPrint("Error is : $responseBody");
-  //     } else if (response.statusCode == 400) {
-  //       debugPrint("No file selected");
-  //     } else {
-  //       String imageUrl = jsonDecode(responseBody)['filePath'];
-  //       debugPrint(imageUrl);
-  //     }
-
-  //     requestBody = {"name": newName, "email": email, "setImageNull": "false"};
-  //   }
-
-  //   final editResponse = await http.put(
-  //     Uri.parse(uri),
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: jsonEncode(requestBody),
-  //   );
-
-  //   final editResponseBody = jsonDecode(editResponse.body);
-
-  //   if (editResponse.statusCode == 500) {
-  //     emit(ProfileErrorState(error: editResponseBody['err']));
-  //   }
-
-  //   if (editResponse.statusCode == 200) {
-  //     fetchHomePage();
-  //   }
-  //   // }
-  //   // catch (err) {
-  //   //   debugPrint(err.toString());
-  //   //   emit(ProfileErrorState(error: err.toString()));
-  //   // }
-  // }
-
   Future<void> editProfile(String? newName, PlatformFile? image) async {
     try {
       String editUri = "http://10.0.2.2:8000/home/edit-profile";
@@ -179,7 +114,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       debugPrint(jsonDecode(editResponse.body).toString());
     } catch (err) {
       debugPrint(err.toString());
-      emit(ProfileErrorState(error: err.toString()));
+      //emit(ProfileErrorState(error: err.toString()));
     }
   }
 

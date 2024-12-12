@@ -68,8 +68,16 @@ class ProfilePage extends StatelessWidget {
                               fontFamily: "MinorkSemiBold", fontSize: 25.0),
                         ),
                         SpacingConsts().smallHeightBetweenFields(context),
-                        editProfile(state.user!, context, nameController,
+                        buildEditProfile(state.user!, context, nameController,
                             emailController, state, state.image),
+                        SpacingConsts().mediumHeightBetweenFields(context),
+                        const AutoSizeText(
+                          "Your committees",
+                          style: TextStyle(
+                              fontFamily: "MinorkSemiBold", fontSize: 25.0),
+                        ),
+                        SpacingConsts().smallHeightBetweenFields(context),
+                        buildCommitteeInfo(context, state.user!.committees!),
                         IconButton(
                             onPressed: () {
                               context.read<AuthCubit>().logout();
@@ -88,7 +96,7 @@ class ProfilePage extends StatelessWidget {
         ));
   }
 
-  Widget editProfile(
+  Widget buildEditProfile(
       User user,
       BuildContext context,
       TextEditingController nameController,
@@ -166,12 +174,8 @@ class ProfilePage extends StatelessWidget {
                         debugPrint("Code executed here");
                         final result = await FilePicker.platform.pickFiles(
                           type: FileType.custom,
-                          allowedExtensions: [
-                            'jpg',
-                            'png',
-                            'jpeg'
-                          ], // Specify file types if needed
-                          withData: true, // Retrieves file bytes
+                          allowedExtensions: ['jpg', 'png', 'jpeg'],
+                          withData: true,
                         );
 
                         if (result != null) {
@@ -202,6 +206,41 @@ class ProfilePage extends StatelessWidget {
           }, 0.8, 0.06, 20),
         ],
       ),
+    );
+  }
+
+  Widget buildCommitteeInfo(
+      BuildContext context, List<CommitteeDetails> committees) {
+    if (committees.isEmpty) {
+      return Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.05),
+        child: const AutoSizeText("No committee memberships yet",
+            maxLines: 1,
+            style: TextStyle(fontFamily: "Nunito", fontSize: 20.0)),
+      );
+    }
+
+    return Column(
+      children: committees.map<Widget>((comm) {
+        return Card(
+          elevation: 3.0,
+          child: ListTile(
+            leading: const CircleAvatar(
+              child: Icon(Icons.group),
+            ),
+            title: AutoSizeText(
+              comm.committeeName!,
+              style: const TextStyle(fontFamily: 'Nunito', fontSize: 20.0),
+            ),
+            subtitle: AutoSizeText(
+              comm.position!,
+              style:
+                  const TextStyle(fontFamily: 'NunitoItalic', fontSize: 15.0),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

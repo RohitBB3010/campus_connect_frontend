@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
@@ -22,11 +24,12 @@ class User {
 class CommitteeDetails {
   String? committeeName;
   String? position;
+  String? logoUrl;
 
   factory CommitteeDetails.fromJson(Map<String, dynamic> json) =>
       _$CommitteeDetailsFromJson(json);
 
-  CommitteeDetails({this.committeeName, this.position});
+  CommitteeDetails({this.committeeName, this.position, this.logoUrl});
 
   Map<String, dynamic> toJson() => _$CommitteeDetailsToJson(this);
 }
