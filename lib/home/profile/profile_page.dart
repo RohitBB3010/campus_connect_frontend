@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:campus_connect_frontend/auth/auth_cubit.dart';
 import 'package:campus_connect_frontend/components/custom_button.dart';
-
 import 'package:campus_connect_frontend/components/loading_page.dart';
 import 'package:campus_connect_frontend/components/text_field.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
@@ -69,7 +69,12 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SpacingConsts().smallHeightBetweenFields(context),
                         editProfile(state.user!, context, nameController,
-                            emailController, state.image)
+                            emailController, state, state.image),
+                        IconButton(
+                            onPressed: () {
+                              context.read<AuthCubit>().logout();
+                            },
+                            icon: const Icon(Icons.logout))
                       ],
                     ),
                   ),
@@ -88,6 +93,7 @@ class ProfilePage extends StatelessWidget {
       BuildContext context,
       TextEditingController nameController,
       TextEditingController emailController,
+      ProfileLoadedState state,
       PlatformFile? image) {
     debugPrint(user.imageUrl);
     return Container(
@@ -191,8 +197,9 @@ class ProfilePage extends StatelessWidget {
                       ],
                     ))),
           SpacingConsts().mediumHeightBetweenFields(context),
-          CustomButton(context, "Save", ColorConsts().secondary_orange, () {},
-              0.8, 0.06, 20)
+          CustomButton(context, "Save", ColorConsts().secondary_orange, () {
+            context.read<ProfileCubit>().editProfile(state.modName!, image);
+          }, 0.8, 0.06, 20),
         ],
       ),
     );

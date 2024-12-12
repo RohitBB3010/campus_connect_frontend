@@ -1,27 +1,30 @@
 import 'dart:convert';
-
+import 'dart:math';
 import 'package:campus_connect_frontend/home/profile/profile_state.dart';
 import 'package:campus_connect_frontend/models/user_model.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileState());
 
   Future<void> fetchHomePage() async {
-    // String uri =
-    //     'http://10.0.2.2:8000/home/fetch-home?email=rohitb.bhandwalkar1@gmail.com';
-
-    String uri =
-        'http://10.0.2.2:8000/home/fetch-home?email=zara.ahmed@example.com';
     try {
       emit(ProfileLoadingState());
 
-      final response = await http.get(Uri.parse(uri));
+      String email = fb.FirebaseAuth.instance.currentUser!.email!;
 
-      final Map<String, dynamic> responseBody = jsonDecode(response.body);
+      String url = "http://10.0.2.2:8000/home/fetch-home?email=$email";
+
+      final response = await http.get(Uri.parse(url));
+
+      debugPrint(response.body.toString());
+
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
 
       User user = User.fromJson(responseBody['user']);
 
@@ -30,55 +33,153 @@ class ProfileCubit extends Cubit<ProfileState> {
       if (user.imageUrl == null || user.imageUrl!.trim().isEmpty) {
         image = null;
       } else {
-        //String url = "http://10.0.2.2:8000/${user.imageUrl}";
-        image = await getPlatformFileFromUrl(user.imageUrl!);
+        image = await fetchImageFromUrl(user.imageUrl!);
       }
 
       emit(ProfileLoadedState(
           user: user,
-          modName: user.name,
+          image: image,
           modEmail: user.emailId,
-          image: image));
+          modName: user.name));
     } catch (err) {
       emit(ProfileErrorState(error: err.toString()));
     }
   }
 
-  Future<void> editProfile(PlatformFile image, String id) async {
-    try {
-      //const stringUrl = "http://10.0.2.2:8000/home/upload-image?id="
-    } catch (err) {
-      debugPrint(err.toString());
-    }
-  }
-
-  Future<PlatformFile?> getPlatformFileFromUrl(String imageUrl) async {
+  Future<PlatformFile?> fetchImageFromUrl(String imageUrl) async {
     try {
       String url = "http://10.0.2.2:8000/$imageUrl";
 
-      debugPrint(url);
-
       final response = await http.get(Uri.parse(url));
 
-      debugPrint(response.statusCode.toString());
-
       if (response.statusCode == 200) {
-        final bytes = response.bodyBytes;
-
-        // Create a PlatformFile object
         return PlatformFile(
-          name: imageUrl.split('/').last, // Extract the file name from the URL
-          size: bytes.length,
-          bytes: bytes,
-          path: null, // Path is null because the file is in memory
+          name: imageUrl.split('/').last,
+          bytes: response.bodyBytes,
+          path: null,
+          size: response.bodyBytes.length,
         );
+      } else if (response.statusCode == 404) {
+        debugPrint('Error: Image not found (404). URL: $url');
       } else {
         debugPrint(
-            'Failed to fetch image. Status code: ${response.statusCode}');
-        return null;
+            'Error: Failed to fetch image. Status code: ${response.statusCode}, URL: $url');
       }
+
+      return null;
+    } catch (error) {
+      debugPrint(error.toString());
+    }
+  }
+
+  // Future<void> editProfile(String newName, PlatformFile? image) async {
+  //   //try {
+  //   String uri = "http://10.0.2.2:8000/home/edit-profile";
+
+  //   Map<String, dynamic> requestBody;
+  //   String email = fb.FirebaseAuth.instance.currentUser!.email!;
+
+  //   if (image == null) {
+  //     requestBody = {"name": newName, "setImageNull": "true", "email": email};
+  //   } else {
+  //     String uriImgAdd =
+  //         "http://10.0.2.2:8000/home/upload_image?id=${(state as ProfileLoadedState).user!.id}&type=user";
+
+  //     debugPrint("Here after uriImgAdd");
+
+  //     var request = http.MultipartRequest('POST', Uri.parse(uriImgAdd));
+
+  //     debugPrint('File path: ${image.path}');
+
+  //     request.files.add(
+  //       await http.MultipartFile.fromPath(
+  //         'image',
+  //         image.path!,
+  //         contentType: MediaType('image', 'jpeg'),
+  //       ),
+  //     );
+
+  //     var response = await request.send();
+  //     var responseBody = await response.stream.bytesToString();
+
+  //     debugPrint("At response, Status Code: ${response.statusCode}");
+  //     if (response.statusCode == 500) {
+  //       debugPrint("Error is : $responseBody");
+  //     } else if (response.statusCode == 400) {
+  //       debugPrint("No file selected");
+  //     } else {
+  //       String imageUrl = jsonDecode(responseBody)['filePath'];
+  //       debugPrint(imageUrl);
+  //     }
+
+  //     requestBody = {"name": newName, "email": email, "setImageNull": "false"};
+  //   }
+
+  //   final editResponse = await http.put(
+  //     Uri.parse(uri),
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: jsonEncode(requestBody),
+  //   );
+
+  //   final editResponseBody = jsonDecode(editResponse.body);
+
+  //   if (editResponse.statusCode == 500) {
+  //     emit(ProfileErrorState(error: editResponseBody['err']));
+  //   }
+
+  //   if (editResponse.statusCode == 200) {
+  //     fetchHomePage();
+  //   }
+  //   // }
+  //   // catch (err) {
+  //   //   debugPrint(err.toString());
+  //   //   emit(ProfileErrorState(error: err.toString()));
+  //   // }
+  // }
+
+  Future<void> editProfile(String? newName, PlatformFile? image) async {
+    try {
+      String editUri = "http://10.0.2.2:8000/home/edit-profile";
+
+      Map<String, dynamic> requestBody;
+      String email = fb.FirebaseAuth.instance.currentUser!.email!;
+
+      debugPrint(email);
+      if (image == null) {
+        requestBody = {"name": newName, "setImageNull": true, "email": email};
+      } else {
+        debugPrint("Here at image not null");
+        String imageAddUri =
+            "http://10.0.2.2:8000/home/upload_image?id=${(state as ProfileLoadedState).user!.id}&type=user";
+
+        var request = http.MultipartRequest('POST', Uri.parse(imageAddUri));
+
+        debugPrint("Image path is : ${image.path.toString()}");
+        request.files.add(await http.MultipartFile.fromPath(
+            'image', image.path!,
+            contentType: MediaType('image', 'jpeg')));
+
+        var response = await request.send();
+        var responseBody = await response.stream.bytesToString();
+
+        if (response.statusCode == 500 || response.statusCode == 400) {
+          debugPrint("Response is : $responseBody");
+        } else {
+          debugPrint("File added successfully");
+          debugPrint("File path is : ${jsonDecode(responseBody)['filePath']}");
+        }
+
+        requestBody = {"name": newName, "setImageNull": false, "email": email};
+      }
+
+      final editResponse = await http.put(Uri.parse(editUri),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(requestBody));
+
+      debugPrint(jsonDecode(editResponse.body).toString());
     } catch (err) {
       debugPrint(err.toString());
+      emit(ProfileErrorState(error: err.toString()));
     }
   }
 
