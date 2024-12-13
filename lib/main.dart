@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff121212)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff121212)),
         useMaterial3: true,
       ),
       home: const MyHomePage(),

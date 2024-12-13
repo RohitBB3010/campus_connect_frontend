@@ -1,21 +1,18 @@
-import 'package:campus_connect_frontend/auth/auth_cubit.dart';
-import 'package:campus_connect_frontend/auth/auth_state.dart';
+import 'package:campus_connect_frontend/committees/announcements/announcements_page_comm.dart';
+import 'package:campus_connect_frontend/committees/events/events_page_comm.dart';
+import 'package:campus_connect_frontend/committees/profile/profile_page_comm.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
-import 'package:campus_connect_frontend/home/announcements/announcements.dart';
-import 'package:campus_connect_frontend/home/calendar/calendar_page.dart';
-import 'package:campus_connect_frontend/home/profile/profile_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class CommPage extends StatefulWidget {
+  const CommPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CommPage> createState() => _CommPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CommPageState extends State<CommPage> {
   final PageController _pageController = PageController(initialPage: 0);
 
   @override
@@ -104,17 +101,10 @@ class _HomePageState extends State<HomePage> {
         ),
         body: PageView(
           controller: _pageController,
-          onPageChanged: (int) {
-            debugPrint(_pageController.page.toString());
-          },
-          children: [
-            const AnnouncementsPage(),
-            const CalendarPage(),
-            BlocBuilder<AuthCubit, AuthState>(
-              builder: (context, state) {
-                return const ProfilePage();
-              },
-            )
+          children: const [
+            AnnouncementsPageComm(),
+            EventsPageComm(),
+            ProfilePageComm()
           ],
         ),
       ),
