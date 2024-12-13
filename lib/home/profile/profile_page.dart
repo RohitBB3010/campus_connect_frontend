@@ -233,7 +233,9 @@ class ProfilePage extends StatelessWidget {
         return InkWell(
           onTap: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => CommPage()));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CommPage(commDetails: comm)));
           },
           child: Card(
             elevation: 3.0,
