@@ -229,7 +229,6 @@ class ProfilePage extends StatelessWidget {
 
     return Column(
       children: committees.map<Widget>((comm) {
-        debugPrint(comm.logoUrl.toString());
         return InkWell(
           onTap: () {
             Navigator.push(

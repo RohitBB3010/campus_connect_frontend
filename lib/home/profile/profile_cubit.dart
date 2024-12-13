@@ -22,11 +22,13 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       final response = await http.get(Uri.parse(url));
 
-      debugPrint(response.body.toString());
+      debugPrint("Response body is : ${response.body}");
 
       Map<String, dynamic> responseBody = jsonDecode(response.body);
 
       User user = User.fromJson(responseBody['user']);
+
+      debugPrint("Error is here");
 
       PlatformFile? image;
 
