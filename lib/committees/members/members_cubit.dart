@@ -23,6 +23,8 @@ class MembersCubit extends Cubit<MembersState> {
 
       List<MemberDetails> members = [];
 
+      debugPrint(response.statusCode.toString());
+
       for (Map<String, dynamic> item in responseBody['members']) {
         MemberDetails member = MemberDetails.fromJson(item);
         members.add(member);

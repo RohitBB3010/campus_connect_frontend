@@ -27,8 +27,14 @@ class _CommPageState extends State<CommPage> {
         backgroundColor: ColorConsts().primary,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
+          backgroundColor: ColorConsts().secondary_pink,
           shape: const CircleBorder(),
           onPressed: () {},
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 50.0,
+          ),
         ),
         appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -59,84 +65,88 @@ class _CommPageState extends State<CommPage> {
                 ],
               ),
             )),
-        bottomNavigationBar: BottomAppBar(
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 6.0,
-          height: MediaQuery.of(context).size.height * 0.07,
-          color: ColorConsts().secondary_orange,
-          child: SizedBox(
+        bottomNavigationBar: Padding(
+          padding:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
+          child: BottomAppBar(
+            shape: const CircularNotchedRectangle(),
+            notchMargin: 6.0,
             height: MediaQuery.of(context).size.height * 0.07,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _pageController.jumpToPage(0);
-                    });
-                  },
-                  iconSize: 30.0,
-                  icon: Icon(
-                    OMIcons.eventAvailable,
-                    color: (_pageController.hasClients
-                            ? _pageController.page == 0.0
-                            : _pageController.initialPage == 0)
-                        ? ColorConsts().primary
-                        : const Color(0xff2F3E46),
+            color: ColorConsts().secondary_orange,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.07,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _pageController.jumpToPage(0);
+                      });
+                    },
+                    iconSize: 30.0,
+                    icon: Icon(
+                      OMIcons.eventAvailable,
+                      color: (_pageController.hasClients
+                              ? _pageController.page == 0.0
+                              : _pageController.initialPage == 0)
+                          ? ColorConsts().primary
+                          : const Color(0xff2F3E46),
+                    ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _pageController.jumpToPage(1);
-                    });
-                  },
-                  iconSize: 30.0,
-                  icon: Icon(
-                    OMIcons.calendarToday,
-                    color: (_pageController.hasClients
-                            ? _pageController.page == 1.0
-                            : _pageController.initialPage == 1)
-                        ? ColorConsts().primary
-                        : const Color(0xff2F3E46),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _pageController.jumpToPage(1);
+                      });
+                    },
+                    iconSize: 30.0,
+                    icon: Icon(
+                      OMIcons.calendarToday,
+                      color: (_pageController.hasClients
+                              ? _pageController.page == 1.0
+                              : _pageController.initialPage == 1)
+                          ? ColorConsts().primary
+                          : const Color(0xff2F3E46),
+                    ),
                   ),
-                ),
-                SpacingConsts().largeWidthBetweenFields(context),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _pageController.jumpToPage(2);
-                    });
-                  },
-                  iconSize: 30.0,
-                  icon: Icon(
-                    OMIcons.group,
-                    color: (_pageController.hasClients
-                            ? _pageController.page == 2.0
-                            : _pageController.initialPage == 2)
-                        ? ColorConsts().primary
-                        : const Color(0xff2F3E46),
+                  SpacingConsts().largeWidthBetweenFields(context),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _pageController.jumpToPage(2);
+                      });
+                    },
+                    iconSize: 30.0,
+                    icon: Icon(
+                      OMIcons.group,
+                      color: (_pageController.hasClients
+                              ? _pageController.page == 2.0
+                              : _pageController.initialPage == 2)
+                          ? ColorConsts().primary
+                          : const Color(0xff2F3E46),
+                    ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _pageController.jumpToPage(3);
-                    });
-                  },
-                  iconSize: 30.0,
-                  icon: Icon(
-                    OMIcons.person,
-                    color: (_pageController.hasClients
-                            ? _pageController.page == 3.0
-                            : _pageController.initialPage == 3)
-                        ? ColorConsts().primary
-                        : const Color(0xff2F3E46),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _pageController.jumpToPage(3);
+                      });
+                    },
+                    iconSize: 30.0,
+                    icon: Icon(
+                      OMIcons.person,
+                      color: (_pageController.hasClients
+                              ? _pageController.page == 3.0
+                              : _pageController.initialPage == 3)
+                          ? ColorConsts().primary
+                          : const Color(0xff2F3E46),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
