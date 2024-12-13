@@ -23,11 +23,12 @@ class MemberDetails {
   String? name;
   String? email;
   String? position;
+  String? imageUrl;
 
   factory MemberDetails.fromJson(Map<String, dynamic> json) =>
       _$MemberDetailsFromJson(json);
 
-  MemberDetails({this.name, this.email, this.position});
+  MemberDetails({this.name, this.email, this.position, this.imageUrl});
 
   Map<String, dynamic> toJson() => _$MemberDetailsToJson(this);
 }

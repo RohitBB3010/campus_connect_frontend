@@ -36,6 +36,7 @@ MemberDetails _$MemberDetailsFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       email: json['email'] as String?,
       position: json['position'] as String?,
+      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$MemberDetailsToJson(MemberDetails instance) =>
@@ -43,4 +44,5 @@ Map<String, dynamic> _$MemberDetailsToJson(MemberDetails instance) =>
       'name': instance.name,
       'email': instance.email,
       'position': instance.position,
+      'imageUrl': instance.imageUrl,
     };

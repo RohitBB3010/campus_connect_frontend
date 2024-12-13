@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/auth/auth_cubit.dart';
+import 'package:campus_connect_frontend/committees/comm_page.dart';
 import 'package:campus_connect_frontend/components/custom_button.dart';
 import 'package:campus_connect_frontend/components/loading_page.dart';
 import 'package:campus_connect_frontend/components/text_field.dart';
@@ -34,6 +35,8 @@ class ProfilePage extends StatelessWidget {
                 appBar: AppBar(
                     toolbarHeight: MediaQuery.of(context).size.height * 0.1,
                     titleSpacing: 0,
+                    backgroundColor: ColorConsts().primary,
+                    elevation: 0,
                     title: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: MediaQuery.of(context).size.width * 0.03),
@@ -78,11 +81,14 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SpacingConsts().smallHeightBetweenFields(context),
                         buildCommitteeInfo(context, state.user!.committees!),
-                        IconButton(
-                            onPressed: () {
-                              context.read<AuthCubit>().logout();
-                            },
-                            icon: const Icon(Icons.logout))
+                        SpacingConsts().mediumHeightBetweenFields(context),
+                        Center(
+                          child:
+                              CustomButton(context, "Logout", Colors.red, () {
+                            context.read<AuthCubit>().logout();
+                          }, 0.8, 0.06, 20),
+                        ),
+                        SpacingConsts().mediumHeightBetweenFields(context)
                       ],
                     ),
                   ),
@@ -203,7 +209,7 @@ class ProfilePage extends StatelessWidget {
           SpacingConsts().mediumHeightBetweenFields(context),
           CustomButton(context, "Save", ColorConsts().secondary_orange, () {
             context.read<ProfileCubit>().editProfile(state.modName!, image);
-          }, 0.8, 0.06, 20),
+          }, 0.8, 0.06, 20)
         ],
       ),
     );
@@ -223,20 +229,28 @@ class ProfilePage extends StatelessWidget {
 
     return Column(
       children: committees.map<Widget>((comm) {
-        return Card(
-          elevation: 3.0,
-          child: ListTile(
-            leading: const CircleAvatar(
-              child: Icon(Icons.group),
-            ),
-            title: AutoSizeText(
-              comm.committeeName!,
-              style: const TextStyle(fontFamily: 'Nunito', fontSize: 20.0),
-            ),
-            subtitle: AutoSizeText(
-              comm.position!,
-              style:
-                  const TextStyle(fontFamily: 'NunitoItalic', fontSize: 15.0),
+        debugPrint(comm.logoUrl.toString());
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => CommPage()));
+          },
+          child: Card(
+            elevation: 3.0,
+            child: ListTile(
+              leading: CircleAvatar(
+                  backgroundColor: ColorConsts().icons_bg,
+                  radius: MediaQuery.of(context).size.width * 0.08,
+                  child: Image.network("http://10.0.2.2:8000/${comm.logoUrl}")),
+              title: AutoSizeText(
+                comm.committeeName!,
+                style: const TextStyle(fontFamily: 'Nunito', fontSize: 20.0),
+              ),
+              subtitle: AutoSizeText(
+                comm.position!,
+                style:
+                    const TextStyle(fontFamily: 'NunitoItalic', fontSize: 15.0),
+              ),
             ),
           ),
         );
