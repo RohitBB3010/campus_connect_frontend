@@ -28,8 +28,6 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       User user = User.fromJson(responseBody['user']);
 
-      debugPrint("Error is here");
-
       PlatformFile? image;
 
       if (user.imageUrl == null || user.imageUrl!.trim().isEmpty) {

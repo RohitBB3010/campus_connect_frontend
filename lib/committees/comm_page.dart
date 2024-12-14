@@ -5,6 +5,7 @@ import 'package:campus_connect_frontend/committees/members/members_page.dart';
 import 'package:campus_connect_frontend/committees/profile/profile_page_comm.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
+import 'package:campus_connect_frontend/committees/add_announcement/announcement_add_page.dart';
 import 'package:campus_connect_frontend/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
@@ -29,7 +30,9 @@ class _CommPageState extends State<CommPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: ColorConsts().secondary_pink,
           shape: const CircleBorder(),
-          onPressed: () {},
+          onPressed: () {
+            _buildAddDialog(context);
+          },
           child: const Icon(
             Icons.add,
             color: Colors.white,
@@ -161,5 +164,13 @@ class _CommPageState extends State<CommPage> {
         ),
       ),
     );
+  }
+
+  void _buildAddDialog(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        //fullscreenDialog: true,
+        builder: (BuildContext context) {
+      return const AnnouncementAddPage();
+    }));
   }
 }
