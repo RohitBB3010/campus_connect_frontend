@@ -1,11 +1,34 @@
+import 'dart:convert';
+
 import 'package:campus_connect_frontend/committees/add_announcement/announcement_add_state.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
+import 'package:http/http.dart' as http;
 
 class AnnouncementAddCubit extends Cubit<AnnouncementAddState> {
   AnnouncementAddCubit() : super(AnnouncementAddState());
+
+  Future<void> addImages(List<ImageFile> images, String announcementId) async {
+    try {
+      for (int i = 0; i < images.length; i++) {
+        String addImageUri =
+            "http://10.0.2.2:8000/committee/upload_announcement_images?annId=$announcementId&type=announcements";
+
+        var request = http.MultipartRequest('POST', Uri.parse(addImageUri));
+        request.files.add(await http.MultipartFile.fromPath(
+            'image', images[i].path!,
+            contentType: MediaType('image', 'jpeg')));
+
+        var response = await request.send();
+
+        debugPrint(response.toString());
+      }
+    } catch (err) {
+      debugPrint(err.toString());
+    }
+  }
 
   void titleChanged(String title) {
     debugPrint("At title : ${state.imageUrl == null}");

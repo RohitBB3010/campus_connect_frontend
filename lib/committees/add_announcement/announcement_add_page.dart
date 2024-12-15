@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/committees/add_announcement/announcement_add_cubit.dart';
 import 'package:campus_connect_frontend/committees/add_announcement/announcement_add_state.dart';
+import 'package:campus_connect_frontend/components/custom_button.dart';
 import 'package:campus_connect_frontend/components/text_field.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
@@ -67,7 +68,7 @@ class AnnouncementAddPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SpacingConsts().mediumHeightBetweenFields(context),
+                          SpacingConsts().smallHeightBetweenFields(context),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -108,84 +109,21 @@ class AnnouncementAddPage extends StatelessWidget {
                               buildVisibilityTags(context, state.isSelected),
                               SpacingConsts().smallHeightBetweenFields(context),
                               tagDropDown(context, state.tag),
+                              SpacingConsts().smallHeightBetweenFields(context),
+                              buildImagePicker(context, controller),
                               SpacingConsts()
                                   .mediumHeightBetweenFields(context),
-                              const AutoSizeText(
-                                "Images",
-                                style: TextStyle(
-                                    fontFamily: "Minork", fontSize: 25.0),
+                              Center(
+                                child: CustomButton(
+                                    context,
+                                    "Submit",
+                                    ColorConsts().secondary_orange,
+                                    () {},
+                                    0.8,
+                                    0.07,
+                                    20),
                               ),
-                              SpacingConsts().smallHeightBetweenFields(context),
-                              MultiImagePickerView(
-                                controller: controller,
-                                draggable: true,
-                                shrinkWrap: true,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10,
-                                ),
-                                padding: const EdgeInsets.all(8.0),
-                                onDragBoxDecoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                builder: (BuildContext context,
-                                    ImageFile imageFile) {
-                                  return Stack(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            image:
-                                                MemoryImage(imageFile.bytes!),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 5,
-                                        right: 5,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            // Remove the specific image from the state
-                                            context
-                                                .read<AnnouncementAddCubit>()
-                                                .removeImage(imageFile);
-                                          },
-                                          child: const Icon(
-                                            Icons.close,
-                                            color: Colors.red,
-                                            size: 20,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                                initialWidget: DefaultInitialWidget(
-                                  centerWidget: Icon(
-                                    Icons.add_photo_alternate,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    size: 50,
-                                  ),
-                                  backgroundColor: Colors.grey.shade200,
-                                ),
-                                addMoreButton: DefaultAddMoreWidget(
-                                  icon: const Icon(Icons.add_a_photo),
-                                  backgroundColor: Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(0.2),
-                                ),
-                              ),
+                              SpacingConsts().mediumHeightBetweenFields(context)
                             ],
                           ),
                         ],
@@ -202,7 +140,7 @@ class AnnouncementAddPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const AutoSizeText(
-          "Select visibility",
+          "Visibility",
           textAlign: TextAlign.start,
           style: TextStyle(fontFamily: "Minork", fontSize: 25.0),
         ),
@@ -330,7 +268,7 @@ class AnnouncementAddPage extends StatelessWidget {
         DropdownButtonFormField2(
             decoration: InputDecoration(
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               filled: true,
               fillColor: ColorConsts().icons_bg,
               border: OutlineInputBorder(
@@ -368,6 +306,83 @@ class AnnouncementAddPage extends StatelessWidget {
             onChanged: (value) {
               context.read<AnnouncementAddCubit>().tagChanged(value!);
             })
+      ],
+    );
+  }
+
+  Widget buildImagePicker(
+      BuildContext context, MultiImagePickerController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const AutoSizeText(
+          "Images",
+          style: TextStyle(fontFamily: "Minork", fontSize: 26.0),
+        ),
+        SpacingConsts().smallHeightBetweenFields(context),
+        MultiImagePickerView(
+          controller: controller,
+          draggable: true,
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+          ),
+          padding: const EdgeInsets.all(8.0),
+          onDragBoxDecoration: BoxDecoration(
+            border: Border.all(
+              color: Theme.of(context).primaryColor,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          builder: (BuildContext context, ImageFile imageFile) {
+            return Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: MemoryImage(imageFile.bytes!),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: GestureDetector(
+                    onTap: () {
+                      // Remove the specific image from the state
+                      context
+                          .read<AnnouncementAddCubit>()
+                          .removeImage(imageFile);
+                    },
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.red,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          initialWidget: DefaultInitialWidget(
+            centerWidget: Icon(
+              Icons.add_photo_alternate,
+              color: Theme.of(context).colorScheme.primary,
+              size: 50,
+            ),
+            backgroundColor: Colors.grey.shade200,
+          ),
+          addMoreButton: DefaultAddMoreWidget(
+            icon: const Icon(Icons.add_a_photo),
+            backgroundColor:
+                Theme.of(context).colorScheme.primary.withOpacity(0.2),
+          ),
+        ),
       ],
     );
   }
