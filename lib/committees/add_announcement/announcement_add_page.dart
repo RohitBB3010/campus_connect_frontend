@@ -5,8 +5,10 @@ import 'package:campus_connect_frontend/components/text_field.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 class AnnouncementAddPage extends StatelessWidget {
   const AnnouncementAddPage({super.key});
@@ -35,56 +37,159 @@ class AnnouncementAddPage extends StatelessWidget {
               create: (context) => AnnouncementAddCubit(),
               child: BlocBuilder<AnnouncementAddCubit, AnnouncementAddState>(
                 builder: (context, state) {
+                  final controller = MultiImagePickerController(
+                    images: state.imageUrl,
+                    picker: (allowMultiple) async {
+                      final result = await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['jpeg', 'png', 'jpg'],
+                          allowMultiple: true,
+                          withData: true);
+
+                      if (result != null) {
+                        final imageFiles = result.files
+                            .map((e) => convertPlatformFileToImageFile(e))
+                            .toList();
+
+                        // ignore: use_build_context_synchronously
+                        context
+                            .read<AnnouncementAddCubit>()
+                            .imageAdded(imageFiles.toList());
+                      }
+                      return [];
+                    },
+                  );
+
                   return Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.08),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SpacingConsts().mediumHeightBetweenFields(context),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const AutoSizeText(
-                              "Title",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontFamily: "Minork", fontSize: 25.0),
-                            ),
-                            CustomTextField(
-                                fieldHeight: 0.07,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SpacingConsts().mediumHeightBetweenFields(context),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const AutoSizeText(
+                                "Title",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontFamily: "Minork", fontSize: 25.0),
+                              ),
+                              CustomTextField(
+                                  fieldHeight: 0.07,
+                                  fieldWidth: 0.8,
+                                  onChanged: context
+                                      .read<AnnouncementAddCubit>()
+                                      .titleChanged),
+                              SpacingConsts().smallHeightBetweenFields(context),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const AutoSizeText(
+                                "Content",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontFamily: "Minork", fontSize: 25.0),
+                              ),
+                              CustomTextField(
+                                fieldHeight: 0.12,
                                 fieldWidth: 0.8,
                                 onChanged: context
                                     .read<AnnouncementAddCubit>()
-                                    .titleChanged),
-                            SpacingConsts().smallHeightBetweenFields(context),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const AutoSizeText(
-                              "Announcement Content",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontFamily: "Minork", fontSize: 25.0),
-                            ),
-                            CustomTextField(
-                              fieldHeight: 0.12,
-                              fieldWidth: 0.8,
-                              onChanged: context
-                                  .read<AnnouncementAddCubit>()
-                                  .contentChanged,
-                              minLines: 4,
-                              multiLine: true,
-                            ),
-                            SpacingConsts().smallHeightBetweenFields(context),
-                            buildVisibilityTags(context, state.isSelected),
-                            SpacingConsts().smallHeightBetweenFields(context),
-                            tagDropDown(context, state.tag)
-                          ],
-                        ),
-                      ],
+                                    .contentChanged,
+                                minLines: 4,
+                                multiLine: true,
+                              ),
+                              SpacingConsts().smallHeightBetweenFields(context),
+                              buildVisibilityTags(context, state.isSelected),
+                              SpacingConsts().smallHeightBetweenFields(context),
+                              tagDropDown(context, state.tag),
+                              SpacingConsts()
+                                  .mediumHeightBetweenFields(context),
+                              const AutoSizeText(
+                                "Images",
+                                style: TextStyle(
+                                    fontFamily: "Minork", fontSize: 25.0),
+                              ),
+                              SpacingConsts().smallHeightBetweenFields(context),
+                              MultiImagePickerView(
+                                controller: controller,
+                                draggable: true,
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                onDragBoxDecoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                builder: (BuildContext context,
+                                    ImageFile imageFile) {
+                                  return Stack(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                            image:
+                                                MemoryImage(imageFile.bytes!),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 5,
+                                        right: 5,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            // Remove the specific image from the state
+                                            context
+                                                .read<AnnouncementAddCubit>()
+                                                .removeImage(imageFile);
+                                          },
+                                          child: const Icon(
+                                            Icons.close,
+                                            color: Colors.red,
+                                            size: 20,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                                initialWidget: DefaultInitialWidget(
+                                  centerWidget: Icon(
+                                    Icons.add_photo_alternate,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    size: 50,
+                                  ),
+                                  backgroundColor: Colors.grey.shade200,
+                                ),
+                                addMoreButton: DefaultAddMoreWidget(
+                                  icon: const Icon(Icons.add_a_photo),
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.2),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -214,9 +319,11 @@ class AnnouncementAddPage extends StatelessWidget {
     selectedTag = selectedTag ?? tags[0];
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const AutoSizeText(
           "Tag",
+          textAlign: TextAlign.start,
           style: TextStyle(fontFamily: "Minork", fontSize: 26.0),
         ),
         SpacingConsts().smallHeightBetweenFields(context),

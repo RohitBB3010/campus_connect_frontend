@@ -1,5 +1,6 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 part 'announcement_add_state.g.dart';
 
@@ -7,7 +8,7 @@ part 'announcement_add_state.g.dart';
 class AnnouncementAddState {
   String? title;
   String? content;
-  List<PlatformFile>? imageUrl;
+  List<ImageFile>? imageUrl;
   String? tag;
   String visibility;
   int isSelected;

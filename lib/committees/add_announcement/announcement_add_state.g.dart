@@ -11,7 +11,7 @@ abstract class _$AnnouncementAddStateCWProxy {
 
   AnnouncementAddState content(String? content);
 
-  AnnouncementAddState imageUrl(List<PlatformFile>? imageUrl);
+  AnnouncementAddState imageUrl(List<ImageFile>? imageUrl);
 
   AnnouncementAddState tag(String? tag);
 
@@ -28,7 +28,7 @@ abstract class _$AnnouncementAddStateCWProxy {
   AnnouncementAddState call({
     String? title,
     String? content,
-    List<PlatformFile>? imageUrl,
+    List<ImageFile>? imageUrl,
     String? tag,
     String? visibility,
     int? isSelected,
@@ -49,7 +49,7 @@ class _$AnnouncementAddStateCWProxyImpl
   AnnouncementAddState content(String? content) => this(content: content);
 
   @override
-  AnnouncementAddState imageUrl(List<PlatformFile>? imageUrl) =>
+  AnnouncementAddState imageUrl(List<ImageFile>? imageUrl) =>
       this(imageUrl: imageUrl);
 
   @override
@@ -91,7 +91,7 @@ class _$AnnouncementAddStateCWProxyImpl
       imageUrl: imageUrl == const $CopyWithPlaceholder()
           ? _value.imageUrl
           // ignore: cast_nullable_to_non_nullable
-          : imageUrl as List<PlatformFile>?,
+          : imageUrl as List<ImageFile>?,
       tag: tag == const $CopyWithPlaceholder()
           ? _value.tag
           // ignore: cast_nullable_to_non_nullable
