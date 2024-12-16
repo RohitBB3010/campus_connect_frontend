@@ -11,8 +11,14 @@ import 'package:http/http.dart' as http;
 class AnnouncementAddCubit extends Cubit<AnnouncementAddState> {
   AnnouncementAddCubit() : super(AnnouncementAddState());
 
-  Future<void> addAnnouncement(String title, String? content, String? tag,
-      String? visibility, String? committeeId, List<ImageFile>? images) async {
+  Future<bool> addAnnouncement(
+      BuildContext context,
+      String title,
+      String? content,
+      String? tag,
+      String? visibility,
+      String? committeeId,
+      List<ImageFile>? images) async {
     var url = "http://10.0.2.2:8000/committee/add-announcement";
 
     var request = http.MultipartRequest('POST', Uri.parse(url));
@@ -36,12 +42,11 @@ class AnnouncementAddCubit extends Cubit<AnnouncementAddState> {
       var response = await request.send();
 
       if (response.statusCode == 200) {
-        debugPrint("File uploaded successfully");
-      } else {
-        debugPrint("error uploading");
+        return true;
       }
+      return false;
     } catch (err) {
-      debugPrint(err.toString());
+      return false;
     }
   }
 

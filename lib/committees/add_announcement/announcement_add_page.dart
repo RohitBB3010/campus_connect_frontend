@@ -116,16 +116,36 @@ class AnnouncementAddPage extends StatelessWidget {
                                   .mediumHeightBetweenFields(context),
                               Center(
                                 child: CustomButton(context, "Submit",
-                                    ColorConsts().secondary_orange, () {
-                                  context
-                                      .read<AnnouncementAddCubit>()
-                                      .addAnnouncement(
-                                          state.title!,
-                                          state.content,
-                                          state.tag,
-                                          state.visibility,
-                                          committeeId,
-                                          state.imageUrl);
+                                    ColorConsts().secondary_orange, () async {
+                                  debugPrint(state.title);
+                                  if (state.title == null ||
+                                      state.title!.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            behavior: SnackBarBehavior.floating,
+                                            backgroundColor:
+                                                ColorConsts().secondary_pink,
+                                            content: const AutoSizeText(
+                                                "Title is mandatory field",
+                                                style: TextStyle(
+                                                    fontFamily: 'Nunito',
+                                                    fontSize: 20))));
+                                  } else {
+                                    bool result = await context
+                                        .read<AnnouncementAddCubit>()
+                                        .addAnnouncement(
+                                            context,
+                                            state.title!,
+                                            state.content,
+                                            state.tag,
+                                            state.visibility,
+                                            committeeId,
+                                            state.imageUrl);
+
+                                    if (result) {
+                                      Navigator.pop(context);
+                                    }
+                                  }
                                 }, 0.8, 0.07, 20),
                               ),
                               SpacingConsts().mediumHeightBetweenFields(context)
