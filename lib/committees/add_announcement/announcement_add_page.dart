@@ -12,7 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 class AnnouncementAddPage extends StatelessWidget {
-  const AnnouncementAddPage({super.key});
+  AnnouncementAddPage({super.key, required this.committeeId});
+  String committeeId;
 
   @override
   Widget build(BuildContext context) {
@@ -114,14 +115,18 @@ class AnnouncementAddPage extends StatelessWidget {
                               SpacingConsts()
                                   .mediumHeightBetweenFields(context),
                               Center(
-                                child: CustomButton(
-                                    context,
-                                    "Submit",
-                                    ColorConsts().secondary_orange,
-                                    () {},
-                                    0.8,
-                                    0.07,
-                                    20),
+                                child: CustomButton(context, "Submit",
+                                    ColorConsts().secondary_orange, () {
+                                  context
+                                      .read<AnnouncementAddCubit>()
+                                      .addAnnouncement(
+                                          state.title!,
+                                          state.content,
+                                          state.tag,
+                                          state.visibility,
+                                          committeeId,
+                                          state.imageUrl);
+                                }, 0.8, 0.07, 20),
                               ),
                               SpacingConsts().mediumHeightBetweenFields(context)
                             ],

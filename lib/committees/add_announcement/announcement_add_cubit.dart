@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:campus_connect_frontend/committees/add_announcement/announcement_add_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http_parser/http_parser.dart';
@@ -10,20 +11,34 @@ import 'package:http/http.dart' as http;
 class AnnouncementAddCubit extends Cubit<AnnouncementAddState> {
   AnnouncementAddCubit() : super(AnnouncementAddState());
 
-  Future<void> addImages(List<ImageFile> images, String announcementId) async {
+  Future<void> addAnnouncement(String title, String? content, String? tag,
+      String? visibility, String? committeeId, List<ImageFile>? images) async {
+    var url = "http://10.0.2.2:8000/committee/add-announcement";
+
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+
+    request.fields['title'] = title;
+    request.fields['content'] = content!;
+    request.fields['tag'] = tag!;
+    request.fields['visibility'] = visibility!;
+    request.fields['committee_id'] = committeeId!;
+    request.fields['userEmail'] = FirebaseAuth.instance.currentUser!.email!;
+
+    if (images != null) {
+      for (var image in images) {
+        var file = await http.MultipartFile.fromPath('image', image.path!,
+            contentType: MediaType('image', 'jpeg'));
+        request.files.add(file);
+      }
+    }
+
     try {
-      for (int i = 0; i < images.length; i++) {
-        String addImageUri =
-            "http://10.0.2.2:8000/committee/upload_announcement_images?annId=$announcementId&type=announcements";
+      var response = await request.send();
 
-        var request = http.MultipartRequest('POST', Uri.parse(addImageUri));
-        request.files.add(await http.MultipartFile.fromPath(
-            'image', images[i].path!,
-            contentType: MediaType('image', 'jpeg')));
-
-        var response = await request.send();
-
-        debugPrint(response.toString());
+      if (response.statusCode == 200) {
+        debugPrint("File uploaded successfully");
+      } else {
+        debugPrint("error uploading");
       }
     } catch (err) {
       debugPrint(err.toString());

@@ -31,7 +31,7 @@ class _CommPageState extends State<CommPage> {
           backgroundColor: ColorConsts().secondary_pink,
           shape: const CircleBorder(),
           onPressed: () {
-            _buildAddDialog(context);
+            _buildAddDialog(context, widget.commDetails.id);
           },
           child: const Icon(
             Icons.add,
@@ -166,11 +166,13 @@ class _CommPageState extends State<CommPage> {
     );
   }
 
-  void _buildAddDialog(BuildContext context) {
+  void _buildAddDialog(BuildContext context, String committeeId) {
     Navigator.of(context).push(MaterialPageRoute(
         //fullscreenDialog: true,
         builder: (BuildContext context) {
-      return const AnnouncementAddPage();
+      return AnnouncementAddPage(
+        committeeId: committeeId,
+      );
     }));
   }
 }
