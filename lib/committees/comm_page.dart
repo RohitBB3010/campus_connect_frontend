@@ -156,7 +156,7 @@ class _CommPageState extends State<CommPage> {
         body: PageView(
           controller: _pageController,
           children: [
-            const AnnouncementsPageComm(),
+            AnnouncementsPageComm(committeeId: widget.commDetails.id),
             const EventsPageComm(),
             MembersPage(committeeId: widget.commDetails.id),
             const ProfilePageComm()
