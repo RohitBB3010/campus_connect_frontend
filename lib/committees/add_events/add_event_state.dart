@@ -13,8 +13,6 @@ class AddEventState {
   DateTime? startTime;
   DateTime? endTime;
   String? registrationLink;
-  bool? registrationRequired;
-  DateTime? registrationDeadline;
   String? eligibility;
   MemberDetails? head;
   MemberDetails? coHead;
@@ -29,8 +27,6 @@ class AddEventState {
       this.startTime,
       this.endTime,
       this.registrationLink,
-      this.registrationRequired,
-      this.registrationDeadline,
       this.eligibility,
       this.head,
       this.coHead,

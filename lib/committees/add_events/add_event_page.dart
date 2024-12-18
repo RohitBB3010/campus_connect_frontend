@@ -282,6 +282,13 @@ class AddEventsPage extends StatelessWidget {
                         context.read<AddEventCubit>().venueChanged),
                     SpacingConsts().smallHeightBetweenFields(context),
                     tagDropDown(context, state.tag),
+                    SpacingConsts().smallHeightBetweenFields(context),
+                    buildCustomField(
+                        "Event Attendees Elgibility(e.g, 'Open to all', 'CS dept. only)",
+                        context.read<AddEventCubit>().eligibilityChanged),
+                    SpacingConsts().smallHeightBetweenFields(context),
+                    buildCustomField("Event Registration Link",
+                        context.read<AddEventCubit>().registrationLinkChanged),
                     SpacingConsts().mediumHeightBetweenFields(context),
                     Center(
                       child: CustomButton(
@@ -299,8 +306,11 @@ class AddEventsPage extends StatelessWidget {
                             cubit.state.venue == null ||
                             cubit.state.venue!.isEmpty ||
                             cubit.state.tag == null ||
-                            cubit.state.tag!.isEmpty) {
-                          // Show error message
+                            cubit.state.tag!.isEmpty ||
+                            cubit.state.registrationLink == null ||
+                            cubit.state.registrationLink!.isEmpty ||
+                            cubit.state.eligibility == null ||
+                            cubit.state.eligibility!.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               behavior: SnackBarBehavior.floating,
@@ -313,7 +323,19 @@ class AddEventsPage extends StatelessWidget {
                             ),
                           );
                         } else {
-                          //cubit.addEvent();
+                          context.read<AddEventCubit>().addEvent(
+                              state.eventName!,
+                              state.description!,
+                              state.tag!,
+                              state.venue!,
+                              state.startTime!,
+                              state.endTime!,
+                              state.images,
+                              state.head!,
+                              committeeId,
+                              state.coHead!,
+                              state.registrationLink!,
+                              state.eligibility!);
                         }
                       }, 0.8, 0.06, 20),
                     ),
@@ -331,6 +353,7 @@ class AddEventsPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AutoSizeText(text,
+            maxLines: 1,
             style: const TextStyle(fontFamily: 'Nunito', fontSize: 20.0)),
         CustomTextField(
           fieldHeight: 0.05,

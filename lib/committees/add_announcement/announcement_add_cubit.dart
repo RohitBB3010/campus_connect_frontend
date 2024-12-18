@@ -32,8 +32,18 @@ class AnnouncementAddCubit extends Cubit<AnnouncementAddState> {
 
     if (images != null) {
       for (var image in images) {
+        String fileExtension = image.path!.split('.').last.toLowerCase();
+
+        String mimeType;
+        if (fileExtension == 'png') {
+          mimeType = 'png';
+        } else if (fileExtension == 'jpg' || fileExtension == 'jpeg') {
+          mimeType = 'jpeg';
+        } else {
+          throw Exception('Unsupported file type: $fileExtension');
+        }
         var file = await http.MultipartFile.fromPath('image', image.path!,
-            contentType: MediaType('image', 'jpeg'));
+            contentType: MediaType('image', mimeType));
         request.files.add(file);
       }
     }

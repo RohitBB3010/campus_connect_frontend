@@ -21,10 +21,6 @@ abstract class _$AddEventStateCWProxy {
 
   AddEventState registrationLink(String? registrationLink);
 
-  AddEventState registrationRequired(bool? registrationRequired);
-
-  AddEventState registrationDeadline(DateTime? registrationDeadline);
-
   AddEventState eligibility(String? eligibility);
 
   AddEventState head(MemberDetails? head);
@@ -49,8 +45,6 @@ abstract class _$AddEventStateCWProxy {
     DateTime? startTime,
     DateTime? endTime,
     String? registrationLink,
-    bool? registrationRequired,
-    DateTime? registrationDeadline,
     String? eligibility,
     MemberDetails? head,
     MemberDetails? coHead,
@@ -89,14 +83,6 @@ class _$AddEventStateCWProxyImpl implements _$AddEventStateCWProxy {
       this(registrationLink: registrationLink);
 
   @override
-  AddEventState registrationRequired(bool? registrationRequired) =>
-      this(registrationRequired: registrationRequired);
-
-  @override
-  AddEventState registrationDeadline(DateTime? registrationDeadline) =>
-      this(registrationDeadline: registrationDeadline);
-
-  @override
   AddEventState eligibility(String? eligibility) =>
       this(eligibility: eligibility);
 
@@ -128,8 +114,6 @@ class _$AddEventStateCWProxyImpl implements _$AddEventStateCWProxy {
     Object? startTime = const $CopyWithPlaceholder(),
     Object? endTime = const $CopyWithPlaceholder(),
     Object? registrationLink = const $CopyWithPlaceholder(),
-    Object? registrationRequired = const $CopyWithPlaceholder(),
-    Object? registrationDeadline = const $CopyWithPlaceholder(),
     Object? eligibility = const $CopyWithPlaceholder(),
     Object? head = const $CopyWithPlaceholder(),
     Object? coHead = const $CopyWithPlaceholder(),
@@ -165,14 +149,6 @@ class _$AddEventStateCWProxyImpl implements _$AddEventStateCWProxy {
           ? _value.registrationLink
           // ignore: cast_nullable_to_non_nullable
           : registrationLink as String?,
-      registrationRequired: registrationRequired == const $CopyWithPlaceholder()
-          ? _value.registrationRequired
-          // ignore: cast_nullable_to_non_nullable
-          : registrationRequired as bool?,
-      registrationDeadline: registrationDeadline == const $CopyWithPlaceholder()
-          ? _value.registrationDeadline
-          // ignore: cast_nullable_to_non_nullable
-          : registrationDeadline as DateTime?,
       eligibility: eligibility == const $CopyWithPlaceholder()
           ? _value.eligibility
           // ignore: cast_nullable_to_non_nullable
