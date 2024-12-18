@@ -234,7 +234,9 @@ class ProfilePage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CommPage(commDetails: comm)));
+                    builder: (context) => CommPage(
+                          commDetails: comm,
+                        )));
           },
           child: Card(
             elevation: 3.0,

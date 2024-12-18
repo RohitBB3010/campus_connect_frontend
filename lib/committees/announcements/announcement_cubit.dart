@@ -22,8 +22,8 @@ class AnnouncementCubit extends Cubit<AnnouncementState> {
       final responseBody = jsonDecode(response.body);
 
       List<AnnouncementModel> announcements = [];
-      for (Map<String, dynamic> items in responseBody['announcements']) {
-        AnnouncementModel ann = AnnouncementModel.fromJson(items);
+      for (Map<String, dynamic> item in responseBody['announcements']) {
+        AnnouncementModel ann = AnnouncementModel.fromJson(item);
         announcements.add(ann);
       }
 
