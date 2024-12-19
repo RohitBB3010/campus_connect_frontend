@@ -40,7 +40,7 @@ class AddEventCubit extends Cubit<AddEventState> {
     }
   }
 
-  Future<void> addEvent(
+  Future<bool> addEvent(
       String title,
       String description,
       String tag,
@@ -85,7 +85,16 @@ class AddEventCubit extends Cubit<AddEventState> {
 
     try {
       var response = await request.send();
-    } catch (err) {}
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      debugPrint(err.toString());
+      return false;
+    }
   }
 
   void eventNameChanged(String eventName) {

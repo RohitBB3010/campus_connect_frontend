@@ -293,7 +293,7 @@ class AddEventsPage extends StatelessWidget {
                     Center(
                       child: CustomButton(
                           context, "Add Event", ColorConsts().secondary_pink,
-                          () {
+                          () async {
                         final cubit = context.read<AddEventCubit>();
                         if (cubit.state.eventName == null ||
                             cubit.state.eventName!.isEmpty ||
@@ -323,19 +323,25 @@ class AddEventsPage extends StatelessWidget {
                             ),
                           );
                         } else {
-                          context.read<AddEventCubit>().addEvent(
-                              state.eventName!,
-                              state.description!,
-                              state.tag!,
-                              state.venue!,
-                              state.startTime!,
-                              state.endTime!,
-                              state.images,
-                              state.head!,
-                              committeeId,
-                              state.coHead!,
-                              state.registrationLink!,
-                              state.eligibility!);
+                          bool result = await context
+                              .read<AddEventCubit>()
+                              .addEvent(
+                                  state.eventName!,
+                                  state.description!,
+                                  state.tag!,
+                                  state.venue!,
+                                  state.startTime!,
+                                  state.endTime!,
+                                  state.images,
+                                  state.head!,
+                                  committeeId,
+                                  state.coHead!,
+                                  state.registrationLink!,
+                                  state.eligibility!);
+
+                          if (result) {
+                            Navigator.pop(context);
+                          }
                         }
                       }, 0.8, 0.06, 20),
                     ),
