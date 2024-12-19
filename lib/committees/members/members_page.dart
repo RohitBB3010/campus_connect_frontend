@@ -54,11 +54,11 @@ class MembersPage extends StatelessWidget {
   Widget buildMemberCard(BuildContext context, MemberDetails member) {
     return Container(
       margin: EdgeInsets.only(
-        bottom: MediaQuery.of(context).size.height * 0.02,
+        bottom: MediaQuery.of(context).size.height * 0.01,
       ),
       width: MediaQuery.of(context).size.width * 0.9,
       child: Card(
-        color: ColorConsts().secondary_Pink_Light,
+        color: ColorConsts().icons_bg,
         elevation: 3.0,
         child: ListTile(
           leading: CircleAvatar(

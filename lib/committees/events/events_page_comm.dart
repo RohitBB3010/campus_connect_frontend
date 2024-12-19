@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/committees/add_events/add_event_page.dart';
+import 'package:campus_connect_frontend/committees/events/event_view_dialog.dart';
 import 'package:campus_connect_frontend/committees/events/events_page_cubit.dart';
 import 'package:campus_connect_frontend/committees/events/events_page_state.dart';
 import 'package:campus_connect_frontend/components/custom_button.dart';
@@ -37,7 +38,7 @@ class EventsPageComm extends StatelessWidget {
                 SpacingConsts().smallHeightBetweenFields(context),
                 Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.05),
+                      horizontal: MediaQuery.of(context).size.width * 0.025),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -52,10 +53,14 @@ class EventsPageComm extends StatelessWidget {
                     ],
                   ),
                 ),
-                Column(
-                    children: state.events.map((event) {
-                  return buildEventCard(context, event);
-                }).toList())
+                SpacingConsts().smallHeightBetweenFields(context),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  child: Column(
+                      children: state.events.map((event) {
+                    return buildEventCard(context, event);
+                  }).toList()),
+                )
               ],
             );
           } else if (state is EventPageErrorState) {
@@ -75,110 +80,132 @@ class EventsPageComm extends StatelessWidget {
   }
 
   Widget buildEventCard(BuildContext context, EventModel event) {
-    return Card(
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.02,
-            horizontal: MediaQuery.of(context).size.width * 0.02),
-        decoration: BoxDecoration(
-            color: ColorConsts().icons_bg,
-            borderRadius: BorderRadius.circular(10)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+            width: MediaQuery.of(context).size.width * 0.2,
+            child: Column(
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: AutoSizeText(
-                    event.eventName,
-                    maxLines: 2,
-                    style:
-                        const TextStyle(fontFamily: 'Minork', fontSize: 23.0),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.005,
-                      horizontal: MediaQuery.of(context).size.width * 0.005),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(17),
-                      color: ColorConsts().secondary_pink),
-                  child: AutoSizeText(
-                    event.tag,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
+                AutoSizeText(formatDateTime(event.startTime).split(' ').first,
+                    maxLines: 1,
                     style: const TextStyle(
-                        fontFamily: 'Minork',
-                        fontSize: 17.0,
-                        color: Colors.white),
-                  ),
-                )
+                        fontFamily: 'MinorkSemiBold', fontSize: 80.0)),
+                AutoSizeText(
+                    '${formatDateTime(event.startTime).split(' ')[1]} ${formatDateTime(event.startTime).split(' ')[2]}',
+                    maxLines: 1,
+                    style: const TextStyle(
+                        fontFamily: 'NunitoSemiBold', fontSize: 60.0))
               ],
-            ),
-            SpacingConsts().smallHeightBetweenFields(context),
-            AutoSizeText(
-              event.description,
-              style: const TextStyle(fontFamily: 'Nunito', fontSize: 18.0),
-            ),
-            SpacingConsts().smallHeightBetweenFields(context),
-            Row(
-              children: [
-                const AutoSizeText("Event Timings : ",
-                    style: TextStyle(fontFamily: 'Nunito', fontSize: 20.0)),
-                Expanded(
-                  child: AutoSizeText(
-                      '${formatDateTime(event.startTime)} - ${formatDateTime(event.endTime)}',
-                      maxLines: 2,
-                      style: const TextStyle(
-                          fontFamily: 'Nunito', fontSize: 17.0)),
+            )),
+        SpacingConsts().customWidthBetweenFields(context, 0.01),
+        InkWell(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return EventViewDialog(event: event);
+                  });
+            },
+            child: Card(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.72,
+                padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.01,
+                  horizontal: MediaQuery.of(context).size.width * 0.02,
                 ),
-              ],
-            ),
-            SpacingConsts().smallHeightBetweenFields(context),
-            const AutoSizeText(
-              "Event Leads :",
-              style: TextStyle(fontFamily: 'Nunito', fontSize: 20.0),
-            ),
-            AutoSizeText(
-              "1) ${event.head}(${event.headEmail})",
-              maxLines: 1,
-              style: const TextStyle(fontFamily: 'Nunito', fontSize: 20.0),
-            ),
-            AutoSizeText(
-              "2) ${event.coHead}(${event.coHeadEmail})",
-              maxLines: 1,
-              style: const TextStyle(fontFamily: 'Nunito', fontSize: 20.0),
-            ),
-            SpacingConsts().smallHeightBetweenFields(context),
-            AutoSizeText(
-              "Eligibility : ${event.eligibility}",
-              maxLines: 1,
-              style: const TextStyle(fontFamily: 'Nunito', fontSize: 20.0),
-            ),
-            if (event.images != null)
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                runAlignment: WrapAlignment.center,
-                spacing: MediaQuery.of(context).size.width * 0.02,
-                children: event.images!.map((url) {
-                  debugPrint(url);
-                  return Container(
-                    width: MediaQuery.of(context).size.width * 0.25,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        image: DecorationImage(
-                            image: NetworkImage('http://10.0.2.2:8000/$url'),
-                            fit: BoxFit.cover)),
-                  );
-                }).toList(),
-              )
-          ],
-        ),
-      ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: ColorConsts().icons_bg),
+                child: Column(
+                  children: [
+                    AutoSizeText(
+                      event.eventName,
+                      style: const TextStyle(
+                          fontFamily: 'MinorkSemiBold', fontSize: 30.0),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          padding: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.005,
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.005),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(17),
+                              color: ColorConsts().secondary_pink),
+                          child: AutoSizeText(
+                            event.tag,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: const TextStyle(
+                                fontFamily: 'Minork',
+                                fontSize: 17.0,
+                                color: Colors.white),
+                          ),
+                        ),
+                        Container(
+                          //width: MediaQuery.of(context).size.width * 0.2,
+                          padding: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.005,
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.02),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(17),
+                              color: ColorConsts().secondary_pink),
+                          child: AutoSizeText(
+                            event.eligibility,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: const TextStyle(
+                                fontFamily: 'Minork',
+                                fontSize: 17.0,
+                                color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                    SpacingConsts().smallHeightBetweenFields(context),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const AutoSizeText(
+                          "Venue :",
+                          style: TextStyle(
+                              fontFamily: 'NunitoSemiBold', fontSize: 18.0),
+                        ),
+                        Flexible(
+                            child: AutoSizeText(
+                          event.venue,
+                          maxLines: 3,
+                          style: const TextStyle(
+                              fontFamily: 'Nunito', fontSize: 18.0),
+                        ))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const AutoSizeText("Timings : ",
+                            style: TextStyle(
+                                fontFamily: 'NunitoSemiBold', fontSize: 18.0)),
+                        Expanded(
+                          child: AutoSizeText(
+                              '${formatDateTime(event.startTime)} - ${formatDateTime(event.endTime)}',
+                              maxLines: 2,
+                              style: const TextStyle(
+                                  fontFamily: 'Nunito', fontSize: 17.0)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            )),
+      ],
     );
   }
 }
