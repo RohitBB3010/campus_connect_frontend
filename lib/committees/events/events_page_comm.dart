@@ -33,35 +33,37 @@ class EventsPageComm extends StatelessWidget {
           if (state is EventPageLoadingState) {
             return const LoadingPage();
           } else if (state is EventPageLoadedState) {
-            return Column(
-              children: [
-                SpacingConsts().smallHeightBetweenFields(context),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.025),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const AutoSizeText("Events",
-                          style: TextStyle(
-                              fontFamily: "MinorkSemiBold", fontSize: 35.0)),
-                      CustomButton(
-                          context, "Add Event", ColorConsts().secondary_pink,
-                          () {
-                        _buildAddEventDialog(context, committeeId);
-                      }, 0.3, 0.04, 20)
-                    ],
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  SpacingConsts().smallHeightBetweenFields(context),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.025),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const AutoSizeText("Events",
+                            style: TextStyle(
+                                fontFamily: "MinorkSemiBold", fontSize: 35.0)),
+                        CustomButton(
+                            context, "Add Event", ColorConsts().secondary_pink,
+                            () {
+                          _buildAddEventDialog(context, committeeId);
+                        }, 0.3, 0.04, 20)
+                      ],
+                    ),
                   ),
-                ),
-                SpacingConsts().smallHeightBetweenFields(context),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  child: Column(
-                      children: state.events.map((event) {
-                    return buildEventCard(context, event);
-                  }).toList()),
-                )
-              ],
+                  SpacingConsts().smallHeightBetweenFields(context),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    child: Column(
+                        children: state.events.map((event) {
+                      return buildEventCard(context, event);
+                    }).toList()),
+                  )
+                ],
+              ),
             );
           } else if (state is EventPageErrorState) {
             return AutoSizeText(state.error.toString());
@@ -121,6 +123,7 @@ class EventsPageComm extends StatelessWidget {
                   children: [
                     AutoSizeText(
                       event.eventName,
+                      maxLines: 2,
                       style: const TextStyle(
                           fontFamily: 'MinorkSemiBold', fontSize: 30.0),
                     ),
@@ -140,7 +143,7 @@ class EventsPageComm extends StatelessWidget {
                           child: AutoSizeText(
                             event.tag,
                             textAlign: TextAlign.center,
-                            maxLines: 2,
+                            maxLines: 1,
                             style: const TextStyle(
                                 fontFamily: 'Minork',
                                 fontSize: 17.0,
@@ -148,7 +151,9 @@ class EventsPageComm extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          //width: MediaQuery.of(context).size.width * 0.2,
+                          constraints: BoxConstraints(
+                              maxWidth:
+                                  MediaQuery.of(context).size.width * 0.35),
                           padding: EdgeInsets.symmetric(
                               vertical:
                                   MediaQuery.of(context).size.height * 0.005,
@@ -160,7 +165,8 @@ class EventsPageComm extends StatelessWidget {
                           child: AutoSizeText(
                             event.eligibility,
                             textAlign: TextAlign.center,
-                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                             style: const TextStyle(
                                 fontFamily: 'Minork',
                                 fontSize: 17.0,

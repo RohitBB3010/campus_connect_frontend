@@ -41,6 +41,7 @@ class EventViewDialog extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: AutoSizeText(
                       event.eventName,
+                      textAlign: TextAlign.center,
                       maxLines: 2,
                       style: const TextStyle(
                           fontFamily: 'MinorkSemiBold', fontSize: 30.0),
@@ -57,7 +58,7 @@ class EventViewDialog extends StatelessWidget {
                     child: AutoSizeText(
                       event.tag,
                       textAlign: TextAlign.center,
-                      maxLines: 2,
+                      maxLines: 1,
                       style: const TextStyle(
                           fontFamily: 'Minork',
                           fontSize: 17.0,
@@ -129,11 +130,13 @@ class EventViewDialog extends StatelessWidget {
                     style: const TextStyle(
                         fontFamily: 'NunitoSemiBold', fontSize: 20.0),
                   ),
-                  AutoSizeText(
-                    event.eligibility,
-                    maxLines: 1,
-                    style:
-                        const TextStyle(fontFamily: 'Nunito', fontSize: 20.0),
+                  Expanded(
+                    child: AutoSizeText(
+                      event.eligibility,
+                      maxLines: 2,
+                      style:
+                          const TextStyle(fontFamily: 'Nunito', fontSize: 20.0),
+                    ),
                   ),
                 ],
               ),
