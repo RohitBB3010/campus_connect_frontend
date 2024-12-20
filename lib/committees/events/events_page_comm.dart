@@ -67,7 +67,8 @@ class EventsPageComm extends StatelessWidget {
               ),
             );
           } else if (state is EventPageErrorState) {
-            return AutoSizeText(state.error.toString());
+            return ErrorPage(
+                errorMessage: state.error, statusCode: state.statusCode);
           } else {
             return const AutoSizeText("Last resort");
           }

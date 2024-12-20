@@ -159,7 +159,7 @@ class _CommPageState extends State<CommPage> {
             AnnouncementsPageComm(committeeId: widget.commDetails.id),
             EventsPageComm(committeeId: widget.commDetails.id),
             MembersPage(committeeId: widget.commDetails.id),
-            const ProfilePageComm()
+            ProfilePageComm(committeeId: widget.commDetails.id)
           ],
         ),
       ),
