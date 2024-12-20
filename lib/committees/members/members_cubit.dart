@@ -33,6 +33,8 @@ class MembersCubit extends Cubit<MembersState> {
       }
     } catch (err) {
       debugPrint(err.toString());
+      emit(MembersErrorState(
+          statusCode: 500, errorMessage: "Some unexpected error occured"));
     }
   }
 }

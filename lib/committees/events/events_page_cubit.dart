@@ -32,7 +32,7 @@ class EventsPageCubit extends Cubit<EventsPageState> {
       emit(EventPageLoadedState(events: events));
     } catch (err) {
       debugPrint(err.toString());
-      emit(EventPageErrorState(error: err.toString()));
+      emit(EventPageErrorState(error: err.toString(), statusCode: 500));
     }
   }
 }

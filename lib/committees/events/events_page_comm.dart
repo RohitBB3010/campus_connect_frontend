@@ -4,6 +4,7 @@ import 'package:campus_connect_frontend/committees/events/event_view_dialog.dart
 import 'package:campus_connect_frontend/committees/events/events_page_cubit.dart';
 import 'package:campus_connect_frontend/committees/events/events_page_state.dart';
 import 'package:campus_connect_frontend/components/custom_button.dart';
+import 'package:campus_connect_frontend/components/error_page.dart';
 import 'package:campus_connect_frontend/components/loading_page.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
@@ -92,7 +93,7 @@ class EventsPageComm extends StatelessWidget {
                 AutoSizeText(formatDateTime(event.startTime).split(' ').first,
                     maxLines: 1,
                     style: const TextStyle(
-                        fontFamily: 'MinorkSemiBold', fontSize: 80.0)),
+                        fontFamily: 'NunitoSemiBold', fontSize: 80.0)),
                 AutoSizeText(
                     '${formatDateTime(event.startTime).split(' ')[1]} ${formatDateTime(event.startTime).split(' ')[2]}',
                     maxLines: 1,

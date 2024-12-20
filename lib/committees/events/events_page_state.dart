@@ -12,6 +12,7 @@ class EventPageLoadingState extends EventsPageState {}
 
 class EventPageErrorState extends EventsPageState {
   String error;
+  int statusCode;
 
-  EventPageErrorState({required this.error});
+  EventPageErrorState({required this.error, required this.statusCode});
 }

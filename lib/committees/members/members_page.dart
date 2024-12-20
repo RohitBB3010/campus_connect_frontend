@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:campus_connect_frontend/committees/members/members_cubit.dart';
 import 'package:campus_connect_frontend/committees/members/members_state.dart';
+import 'package:campus_connect_frontend/components/error_page.dart';
 import 'package:campus_connect_frontend/components/loading_page.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
@@ -43,6 +44,9 @@ class MembersPage extends StatelessWidget {
                 ],
               ),
             );
+          } else if (state is MembersErrorState) {
+            return ErrorPage(
+                errorMessage: state.errorMessage, statusCode: state.statusCode);
           }
 
           return const AutoSizeText("Last resort");
