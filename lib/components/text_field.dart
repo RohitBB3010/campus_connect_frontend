@@ -13,7 +13,9 @@ class CustomTextField extends StatelessWidget {
       this.obscureBool,
       this.suffixIconData,
       this.suffixIconPressed,
-      this.isEnabled});
+      this.isEnabled,
+      this.multiLine,
+      this.minLines});
 
   final double fieldHeight;
   final double fieldWidth;
@@ -26,6 +28,8 @@ class CustomTextField extends StatelessWidget {
   final IconData? suffixIconData;
   final void Function()? suffixIconPressed;
   final bool? isEnabled;
+  final bool? multiLine;
+  final int? minLines;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,10 @@ class CustomTextField extends StatelessWidget {
       width: MediaQuery.of(context).size.width * fieldWidth,
       height: MediaQuery.of(context).size.height * fieldHeight,
       child: TextFormField(
+        keyboardType:
+            multiLine == null ? TextInputType.multiline : TextInputType.text,
+        minLines: minLines ?? 1,
+        maxLines: null,
         enabled: isEnabled,
         onChanged: onChanged,
         controller: controller,

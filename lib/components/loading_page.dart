@@ -8,10 +8,10 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorConsts().secondary_orange,
+        backgroundColor: ColorConsts().primary,
         body: Center(
           child: LoadingAnimationWidget.fourRotatingDots(
-              color: ColorConsts().icons_bg,
+              color: ColorConsts().secondary_orange,
               size: MediaQuery.of(context).size.width * 0.3),
         ));
   }

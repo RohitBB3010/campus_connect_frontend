@@ -22,7 +22,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       final response = await http.get(Uri.parse(url));
 
-      debugPrint(response.body.toString());
+      debugPrint("Response body is : ${response.body}");
 
       Map<String, dynamic> responseBody = jsonDecode(response.body);
 
@@ -89,7 +89,6 @@ class ProfileCubit extends Cubit<ProfileState> {
 
         var request = http.MultipartRequest('POST', Uri.parse(imageAddUri));
 
-        debugPrint("Image path is : ${image.path.toString()}");
         request.files.add(await http.MultipartFile.fromPath(
             'image', image.path!,
             contentType: MediaType('image', 'jpeg')));
