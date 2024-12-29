@@ -22,6 +22,7 @@ class User {
 
 @JsonSerializable()
 class CommitteeDetails {
+  String id;
   String? committeeName;
   String? position;
   String? logoUrl;
@@ -29,7 +30,8 @@ class CommitteeDetails {
   factory CommitteeDetails.fromJson(Map<String, dynamic> json) =>
       _$CommitteeDetailsFromJson(json);
 
-  CommitteeDetails({this.committeeName, this.position, this.logoUrl});
+  CommitteeDetails(
+      {required this.id, this.committeeName, this.position, this.logoUrl});
 
   Map<String, dynamic> toJson() => _$CommitteeDetailsToJson(this);
 }

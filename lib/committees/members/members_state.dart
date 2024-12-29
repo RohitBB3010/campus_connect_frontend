@@ -10,4 +10,9 @@ class MembersLoadedState extends MembersState {
   MembersLoadedState({required this.members});
 }
 
-class MembersErrorState extends MembersState {}
+class MembersErrorState extends MembersState {
+  String errorMessage;
+  int statusCode;
+
+  MembersErrorState({required this.errorMessage, required this.statusCode});
+}

@@ -1,8 +1,8 @@
 import 'package:campus_connect_frontend/auth/auth_cubit.dart';
 import 'package:campus_connect_frontend/auth/auth_state.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
-import 'package:campus_connect_frontend/home/announcements/announcements.dart';
-import 'package:campus_connect_frontend/home/calendar/calendar_page.dart';
+import 'package:campus_connect_frontend/home/announcements/announcement_page.dart';
+import 'package:campus_connect_frontend/home/events/event_page.dart';
 import 'package:campus_connect_frontend/home/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,9 +32,9 @@ class _HomePageState extends State<HomePage> {
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.3), // Shadow color
-                offset: const Offset(0, -4), // Offset the shadow upwards
-                blurRadius: 10, // Smoothness of the shadow
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(0, -4),
+                blurRadius: 10,
               ),
             ],
           ),
@@ -108,8 +108,8 @@ class _HomePageState extends State<HomePage> {
             debugPrint(_pageController.page.toString());
           },
           children: [
-            const AnnouncementsPage(),
-            const CalendarPage(),
+            const EventsPage(),
+            const AnnouncementPage(),
             BlocBuilder<AuthCubit, AuthState>(
               builder: (context, state) {
                 return const ProfilePage();

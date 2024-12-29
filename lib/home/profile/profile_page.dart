@@ -229,11 +229,14 @@ class ProfilePage extends StatelessWidget {
 
     return Column(
       children: committees.map<Widget>((comm) {
-        debugPrint(comm.logoUrl.toString());
         return InkWell(
           onTap: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => CommPage()));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CommPage(
+                          commDetails: comm,
+                        )));
           },
           child: Card(
             elevation: 3.0,

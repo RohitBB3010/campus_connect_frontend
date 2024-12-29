@@ -25,6 +25,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
 
 CommitteeDetails _$CommitteeDetailsFromJson(Map<String, dynamic> json) =>
     CommitteeDetails(
+      id: json['id'] as String,
       committeeName: json['committeeName'] as String?,
       position: json['position'] as String?,
       logoUrl: json['logoUrl'] as String?,
@@ -32,6 +33,7 @@ CommitteeDetails _$CommitteeDetailsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CommitteeDetailsToJson(CommitteeDetails instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'committeeName': instance.committeeName,
       'position': instance.position,
       'logoUrl': instance.logoUrl,
