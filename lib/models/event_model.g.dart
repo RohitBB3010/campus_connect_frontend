@@ -22,6 +22,7 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
       coHead: json['coHead'] as String,
       headEmail: json['headEmail'] as String,
       coHeadEmail: json['coHeadEmail'] as String,
+      committeeName: json['committeeName'] as String?,
     );
 
 Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
@@ -40,4 +41,5 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'coHead': instance.coHead,
       'headEmail': instance.headEmail,
       'coHeadEmail': instance.coHeadEmail,
+      'committeeName': instance.committeeName,
     };

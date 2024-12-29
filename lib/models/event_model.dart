@@ -18,6 +18,7 @@ class EventModel {
   String coHead;
   String headEmail;
   String coHeadEmail;
+  String? committeeName;
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);
@@ -36,7 +37,8 @@ class EventModel {
       required this.head,
       required this.coHead,
       required this.headEmail,
-      required this.coHeadEmail});
+      required this.coHeadEmail,
+      this.committeeName});
 
   Map<String, dynamic> toJson() => _$EventModelToJson(this);
 }

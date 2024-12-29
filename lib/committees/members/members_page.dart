@@ -5,7 +5,6 @@ import 'package:campus_connect_frontend/components/error_page.dart';
 import 'package:campus_connect_frontend/components/loading_page.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
-import 'package:campus_connect_frontend/home/profile/profile_state.dart';
 import 'package:campus_connect_frontend/models/committee_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
