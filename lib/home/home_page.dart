@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
             debugPrint(_pageController.page.toString());
           },
           children: [
-            const EventsPage(),
+            EventsPage(),
             const AnnouncementPage(),
             BlocBuilder<AuthCubit, AuthState>(
               builder: (context, state) {

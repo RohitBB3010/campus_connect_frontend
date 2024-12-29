@@ -10,6 +10,7 @@ class EventLoadingState extends EventState {}
 @CopyWith()
 class EventLoadedState extends EventState {
   List<EventModel> events;
+  List<EventModel> displayEvents;
   String userName;
   String? profileUrl;
   String? filterCommitteeName;
@@ -19,6 +20,7 @@ class EventLoadedState extends EventState {
 
   EventLoadedState(
       {required this.events,
+      required this.displayEvents,
       required this.userName,
       this.profileUrl,
       this.filterCommitteeName,

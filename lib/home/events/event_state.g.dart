@@ -9,6 +9,8 @@ part of 'event_state.dart';
 abstract class _$EventLoadedStateCWProxy {
   EventLoadedState events(List<EventModel> events);
 
+  EventLoadedState displayEvents(List<EventModel> displayEvents);
+
   EventLoadedState userName(String userName);
 
   EventLoadedState profileUrl(String? profileUrl);
@@ -29,6 +31,7 @@ abstract class _$EventLoadedStateCWProxy {
   /// ````
   EventLoadedState call({
     List<EventModel>? events,
+    List<EventModel>? displayEvents,
     String? userName,
     String? profileUrl,
     String? filterCommitteeName,
@@ -46,6 +49,10 @@ class _$EventLoadedStateCWProxyImpl implements _$EventLoadedStateCWProxy {
 
   @override
   EventLoadedState events(List<EventModel> events) => this(events: events);
+
+  @override
+  EventLoadedState displayEvents(List<EventModel> displayEvents) =>
+      this(displayEvents: displayEvents);
 
   @override
   EventLoadedState userName(String userName) => this(userName: userName);
@@ -79,6 +86,7 @@ class _$EventLoadedStateCWProxyImpl implements _$EventLoadedStateCWProxy {
   /// ````
   EventLoadedState call({
     Object? events = const $CopyWithPlaceholder(),
+    Object? displayEvents = const $CopyWithPlaceholder(),
     Object? userName = const $CopyWithPlaceholder(),
     Object? profileUrl = const $CopyWithPlaceholder(),
     Object? filterCommitteeName = const $CopyWithPlaceholder(),
@@ -91,6 +99,11 @@ class _$EventLoadedStateCWProxyImpl implements _$EventLoadedStateCWProxy {
           ? _value.events
           // ignore: cast_nullable_to_non_nullable
           : events as List<EventModel>,
+      displayEvents:
+          displayEvents == const $CopyWithPlaceholder() || displayEvents == null
+              ? _value.displayEvents
+              // ignore: cast_nullable_to_non_nullable
+              : displayEvents as List<EventModel>,
       userName: userName == const $CopyWithPlaceholder() || userName == null
           ? _value.userName
           // ignore: cast_nullable_to_non_nullable
