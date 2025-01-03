@@ -25,9 +25,26 @@ class AnnouncementsPageComm extends StatelessWidget {
             debugPrint(state.announcements.length.toString());
             return SingleChildScrollView(
               child: Column(
-                  children: state.announcements.map((announcement) {
-                return _buildAnnouncementCard(context, announcement);
-              }).toList()),
+                children: [
+                  SpacingConsts().smallHeightBetweenFields(context),
+                  const AutoSizeText(
+                    'Announcements',
+                    style:
+                        TextStyle(fontFamily: 'MinorkSemiBold', fontSize: 30.0),
+                  ),
+                  if (state.announcements.isEmpty)
+                    const Image(image: AssetImage('assets/empty_img.png')),
+                  if (state.announcements.isEmpty)
+                    const AutoSizeText(
+                      'No announcmments',
+                      style: TextStyle(fontFamily: 'Minork', fontSize: 25.0),
+                    ),
+                  Column(
+                      children: state.announcements.map((announcement) {
+                    return _buildAnnouncementCard(context, announcement);
+                  }).toList()),
+                ],
+              ),
             );
           } else {
             return const AutoSizeText("Last case");

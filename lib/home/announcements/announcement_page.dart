@@ -54,14 +54,21 @@ class AnnouncementHomePage extends StatelessWidget {
                 child: Column(
                   children: [
                     SpacingConsts().mediumHeightBetweenFields(context),
-                    Expanded(
-                      child: ListView(
-                        children: state.announcements.map((announcement) {
-                          return AnnouncementCard(
-                              announcement: announcement, isHome: true);
-                        }).toList(),
+                    if (state.announcements.isEmpty)
+                      const Image(image: AssetImage('assets/empty_img.png')),
+                    if (state.announcements.isEmpty)
+                      const AutoSizeText('No announcements',
+                          style:
+                              TextStyle(fontFamily: 'Minork', fontSize: 30.0)),
+                    if (state.announcements.isNotEmpty)
+                      Expanded(
+                        child: ListView(
+                          children: state.announcements.map((announcement) {
+                            return AnnouncementCard(
+                                announcement: announcement, isHome: true);
+                          }).toList(),
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),

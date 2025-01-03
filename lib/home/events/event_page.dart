@@ -59,6 +59,10 @@ class EventsPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  const AutoSizeText("Events",
+                      style: TextStyle(
+                          fontFamily: 'MinorkSemiBold', fontSize: 35)),
+                  SpacingConsts().smallHeightBetweenFields(context),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Column(
@@ -120,13 +124,19 @@ class EventsPage extends StatelessWidget {
                     ),
                   ),
                   SpacingConsts().smallHeightBetweenFields(context),
-                  Expanded(
-                    child: ListView(
-                      children: state.displayEvents.map((event) {
-                        return EventCard(event: event, isHome: true);
-                      }).toList(),
+                  if (state.displayEvents.isEmpty)
+                    Image.asset('assets/empty_img.png'),
+                  if (state.displayEvents.isEmpty)
+                    const AutoSizeText("No events scheduled",
+                        style: TextStyle(fontFamily: 'Minork', fontSize: 25)),
+                  if (state.displayEvents.isNotEmpty)
+                    Expanded(
+                      child: ListView(
+                        children: state.displayEvents.map((event) {
+                          return EventCard(event: event, isHome: true);
+                        }).toList(),
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
