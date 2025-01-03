@@ -11,8 +11,7 @@ class EventLoadingState extends EventState {}
 class EventLoadedState extends EventState {
   List<EventModel> events;
   List<EventModel> displayEvents;
-  String userName;
-  String? profileUrl;
+
   String? filterCommitteeName;
   String? searchEventName;
   DateTime? afterTime;
@@ -21,8 +20,6 @@ class EventLoadedState extends EventState {
   EventLoadedState(
       {required this.events,
       required this.displayEvents,
-      required this.userName,
-      this.profileUrl,
       this.filterCommitteeName,
       this.searchEventName,
       this.afterTime,

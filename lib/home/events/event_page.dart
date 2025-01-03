@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EventsPage extends StatelessWidget {
-  EventsPage({super.key});
+  EventsPage({super.key, required this.userName, required this.profileImage});
+  String userName;
+  String profileImage;
 
   List<String> committeeNames = [
     'Computer Society Of India',
@@ -39,11 +41,11 @@ class EventsPage extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.12,
                         height: MediaQuery.of(context).size.height * 0.1,
                         child: Image(
-                          image: NetworkImage(state.profileUrl!),
+                          image: NetworkImage(profileImage),
                           fit: BoxFit.contain,
                         )),
                     SpacingConsts().smallWidthBetweenFields(context),
-                    AutoSizeText(state.userName,
+                    AutoSizeText(userName,
                         style: const TextStyle(
                             fontFamily: 'MinorkSemiBold', fontSize: 25)),
                   ],

@@ -1,44 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:campus_connect_frontend/auth/auth_state.dart';
-import 'package:campus_connect_frontend/committees/announcements/annoncement_state.dart';
-import 'package:campus_connect_frontend/committees/announcements/announcement_cubit.dart';
-import 'package:campus_connect_frontend/components/loading_page.dart';
 import 'package:campus_connect_frontend/constants/color_consts.dart';
 import 'package:campus_connect_frontend/constants/spacing_consts.dart';
 import 'package:campus_connect_frontend/models/announcement_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AnnouncementsPageComm extends StatelessWidget {
-  AnnouncementsPageComm({super.key, required this.committeeId});
-  String committeeId;
+class AnnouncementCard extends StatelessWidget {
+  AnnouncementCard(
+      {super.key, required this.announcement, required this.isHome});
+  AnnouncementModel announcement;
+  bool isHome;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AnnouncementCubit()..fetchAnnouncements(committeeId),
-      child: BlocBuilder<AnnouncementCubit, AnnouncementState>(
-        builder: (context, state) {
-          if (state is AnnouncementLoadingState) {
-            return const LoadingPage();
-          } else if (state is AnnouncementLoadedState) {
-            debugPrint(state.announcements.length.toString());
-            return SingleChildScrollView(
-              child: Column(
-                  children: state.announcements.map((announcement) {
-                return _buildAnnouncementCard(context, announcement);
-              }).toList()),
-            );
-          } else {
-            return const AutoSizeText("Last case");
-          }
-        },
-      ),
-    );
-  }
-
-  Widget _buildAnnouncementCard(
-      BuildContext context, AnnouncementModel announcement) {
     return Container(
       margin: EdgeInsets.only(
         bottom: MediaQuery.of(context).size.height * 0.02,

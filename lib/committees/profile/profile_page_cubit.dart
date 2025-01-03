@@ -29,6 +29,8 @@ class ProfilePageCubit extends Cubit<ProfilePageState> {
         events.add(profileEvent);
       }
 
+      debugPrint(responseBody['announcements'].toString());
+
       List<ProfileAnnouncements> announcements = [];
       for (Map<String, dynamic> announcement in responseBody['announcements']) {
         ProfileAnnouncements profileEvent =
@@ -40,7 +42,7 @@ class ProfilePageCubit extends Cubit<ProfilePageState> {
           name: responseBody['name'],
           email: responseBody['email'],
           position: responseBody['position'],
-          announcements: [],
+          announcements: announcements,
           events: events));
     } catch (err) {
       debugPrint(err.toString());

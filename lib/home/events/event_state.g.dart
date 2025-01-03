@@ -11,10 +11,6 @@ abstract class _$EventLoadedStateCWProxy {
 
   EventLoadedState displayEvents(List<EventModel> displayEvents);
 
-  EventLoadedState userName(String userName);
-
-  EventLoadedState profileUrl(String? profileUrl);
-
   EventLoadedState filterCommitteeName(String? filterCommitteeName);
 
   EventLoadedState searchEventName(String? searchEventName);
@@ -32,8 +28,6 @@ abstract class _$EventLoadedStateCWProxy {
   EventLoadedState call({
     List<EventModel>? events,
     List<EventModel>? displayEvents,
-    String? userName,
-    String? profileUrl,
     String? filterCommitteeName,
     String? searchEventName,
     DateTime? afterTime,
@@ -53,13 +47,6 @@ class _$EventLoadedStateCWProxyImpl implements _$EventLoadedStateCWProxy {
   @override
   EventLoadedState displayEvents(List<EventModel> displayEvents) =>
       this(displayEvents: displayEvents);
-
-  @override
-  EventLoadedState userName(String userName) => this(userName: userName);
-
-  @override
-  EventLoadedState profileUrl(String? profileUrl) =>
-      this(profileUrl: profileUrl);
 
   @override
   EventLoadedState filterCommitteeName(String? filterCommitteeName) =>
@@ -87,8 +74,6 @@ class _$EventLoadedStateCWProxyImpl implements _$EventLoadedStateCWProxy {
   EventLoadedState call({
     Object? events = const $CopyWithPlaceholder(),
     Object? displayEvents = const $CopyWithPlaceholder(),
-    Object? userName = const $CopyWithPlaceholder(),
-    Object? profileUrl = const $CopyWithPlaceholder(),
     Object? filterCommitteeName = const $CopyWithPlaceholder(),
     Object? searchEventName = const $CopyWithPlaceholder(),
     Object? afterTime = const $CopyWithPlaceholder(),
@@ -104,14 +89,6 @@ class _$EventLoadedStateCWProxyImpl implements _$EventLoadedStateCWProxy {
               ? _value.displayEvents
               // ignore: cast_nullable_to_non_nullable
               : displayEvents as List<EventModel>,
-      userName: userName == const $CopyWithPlaceholder() || userName == null
-          ? _value.userName
-          // ignore: cast_nullable_to_non_nullable
-          : userName as String,
-      profileUrl: profileUrl == const $CopyWithPlaceholder()
-          ? _value.profileUrl
-          // ignore: cast_nullable_to_non_nullable
-          : profileUrl as String?,
       filterCommitteeName: filterCommitteeName == const $CopyWithPlaceholder()
           ? _value.filterCommitteeName
           // ignore: cast_nullable_to_non_nullable

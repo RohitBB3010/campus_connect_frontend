@@ -17,6 +17,8 @@ class EventCubit extends Cubit<EventState> {
 
       String userEmail = FirebaseAuth.instance.currentUser!.email!;
 
+      emit(EventLoadingState());
+
       final response = await http.get(Uri.parse('$fetchHomeUri$userEmail'));
 
       final responseBody = jsonDecode(response.body);
@@ -29,10 +31,9 @@ class EventCubit extends Cubit<EventState> {
 
       if (response.statusCode == 200) {
         emit(EventLoadedState(
-            events: events,
-            displayEvents: events,
-            userName: responseBody['userName'],
-            profileUrl: 'http://10.0.2.2:8000/${responseBody['profileUrl']}'));
+          events: events,
+          displayEvents: events,
+        ));
       }
     } catch (err) {
       debugPrint(err.toString());

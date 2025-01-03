@@ -86,6 +86,11 @@ class ProfilePageComm extends StatelessWidget {
                         maxLines: 1,
                         style: TextStyle(fontFamily: 'Nunito', fontSize: 20),
                       ),
+                    if (state.announcements.isNotEmpty)
+                      Column(
+                          children: state.announcements.map((announcement) {
+                        return buildAnnouncementCard(context, announcement);
+                      }).toList()),
                   ],
                 ),
               ),
@@ -157,6 +162,41 @@ class ProfilePageComm extends StatelessWidget {
               '${formatDateTime(event.startDate)} - ${formatDateTime(event.endDate)}',
               maxLines: 1,
               style: const TextStyle(fontFamily: 'Nunito', fontSize: 20))
+        ],
+      ),
+    );
+  }
+
+  Widget buildAnnouncementCard(
+      BuildContext context, ProfileAnnouncements announcement) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      margin:
+          EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.01),
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.02,
+          vertical: MediaQuery.of(context).size.width * 0.01),
+      decoration: BoxDecoration(
+          color: ColorConsts().icons_bg,
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AutoSizeText(
+                announcement.title,
+                maxLines: 1,
+                style: const TextStyle(fontFamily: 'Minork', fontSize: 20),
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ))
+            ],
+          ),
         ],
       ),
     );
