@@ -51,7 +51,7 @@ class AddEventCubit extends Cubit<AddEventState> {
       MemberDetails head,
       String committeeId,
       MemberDetails coHead,
-      String registrationLink,
+      String? registrationLink,
       String eligibility) async {
     String addEventUrl = 'http://10.0.2.2:8000/committee/add-event';
 
@@ -71,7 +71,9 @@ class AddEventCubit extends Cubit<AddEventState> {
     request.fields['coHeadEmail'] = coHead.email!;
     request.fields['venue'] = venue;
     request.fields['authorEmail'] = FirebaseAuth.instance.currentUser!.email!;
-    request.fields['registrationLink'] = registrationLink;
+    if (registrationLink != null) {
+      request.fields['registrationLink'] = registrationLink;
+    }
     request.fields['eligibility'] = eligibility;
 
     debugPrint(state.images!.length.toString());

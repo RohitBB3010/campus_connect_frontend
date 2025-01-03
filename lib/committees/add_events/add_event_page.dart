@@ -307,8 +307,6 @@ class AddEventsPage extends StatelessWidget {
                             cubit.state.venue!.isEmpty ||
                             cubit.state.tag == null ||
                             cubit.state.tag!.isEmpty ||
-                            cubit.state.registrationLink == null ||
-                            cubit.state.registrationLink!.isEmpty ||
                             cubit.state.eligibility == null ||
                             cubit.state.eligibility!.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -336,7 +334,7 @@ class AddEventsPage extends StatelessWidget {
                                   state.head!,
                                   committeeId,
                                   state.coHead!,
-                                  state.registrationLink!,
+                                  state.registrationLink,
                                   state.eligibility!);
 
                           if (result) {
